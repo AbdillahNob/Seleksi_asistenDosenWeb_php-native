@@ -1,6 +1,19 @@
 <?php 
 require 'function/function.php';
 
+session_start();
+
+// Jika Login tapi belum LogOut
+if(isset($_SESSION['halaman'])){
+    echo"
+        <script>
+            window.location.replace('dashboard.php');
+        </script>
+    ";
+}
+
+
+
 if(isset($_POST['login']) && isset($_POST['status']) ){
 
     $username = $_POST['username'];    
@@ -17,6 +30,9 @@ if(isset($_POST['login']) && isset($_POST['status']) ){
 
             // 3. Validasi Password
             if(password_verify($password, $row['password'])){
+                $_SESSION['nomor'] =  $row['nomor'];
+                $_SESSION['halaman'] = true;
+            
                 echo"
                 <script type='text/javascript'>
                     setTimeout(function () {
@@ -63,13 +79,13 @@ if(isset($_POST['login']) && isset($_POST['status']) ){
                         title: 'INFO',
                         text: 'Status Anda Salah!',
                         icon: 'warning',
-                        timer: '3200',
+                        timer: '2200',
                         showConfirmButton: false
                     });
                 },10);
                 window.setTimeout(function(){
                     window.location.replace('index.php');
-                },2500);
+                },2000);
             </script>
             ";
         }
@@ -106,9 +122,9 @@ if(isset($_POST['login']) && isset($_POST['status']) ){
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta na me="viewport" content="width=device-width,initial-scale=1">
-    <title>Quixlab - Bootstrap Admin Dashboard Template by Themefisher.com</title>
+    <title>Seleksi Asisten Dosen Universitas Dipa Makassar</title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="../../assets/images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/Logo-Universitas-Dipa-Makassar.png">
     <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous"> -->
     <link href="css/style.css" rel="stylesheet">
     <script src="sweetalert2.min.js"></script>

@@ -9,51 +9,41 @@ require 'template/header.php';
             <div class="col-lg-4 col-sm-6">
                 <div class="card gradient-1">
                     <div class="card-body">
-                        <h3 class="card-title text-white">Products Sold</h3>
+                        <h3 class="card-title text-white">Peserta Asdos</h3>
                         <div class="d-inline-block">
-                            <h2 class="text-white">4565</h2>
+                            <h2 class="text-white">45</h2>
                             <p class="text-white mb-0">Jan - March 2019</p>
                         </div>
-                        <span class="float-right display-5 opacity-5"><i class="fa fa-shopping-cart"></i></span>
+                        <span class="float-right display-5 opacity-5"><i
+                                class="fa-solid fa-chalkboard-user"></i></i></span>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 col-sm-6">
                 <div class="card gradient-2">
                     <div class="card-body">
-                        <h3 class="card-title text-white">Net Profit</h3>
+                        <h3 class="card-title text-white">Mata Kuliah Praktikum</h3>
                         <div class="d-inline-block">
-                            <h2 class="text-white">$ 8541</h2>
+                            <h2 class="text-white">10</h2>
                             <p class="text-white mb-0">Jan - March 2019</p>
                         </div>
-                        <span class="float-right display-5 opacity-5"><i class="fa fa-money"></i></span>
+                        <span class="float-right display-5 opacity-5"><i class="fa-solid fa-receipt"></i></span>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 col-sm-6">
                 <div class="card gradient-3">
                     <div class="card-body">
-                        <h3 class="card-title text-white">New Customers</h3>
+                        <h3 class="card-title text-white">Asdos yang di Terima</h3>
                         <div class="d-inline-block">
-                            <h2 class="text-white">4565</h2>
+                            <h2 class="text-white">23</h2>
                             <p class="text-white mb-0">Jan - March 2019</p>
                         </div>
-                        <span class="float-right display-5 opacity-5"><i class="fa fa-users"></i></span>
+                        <span class="float-right display-5 opacity-5"><i class="fas fa-users"></i></span>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-sm-6">
-                <div class="card gradient-4">
-                    <div class="card-body">
-                        <h3 class="card-title text-white">Customer Satisfaction</h3>
-                        <div class="d-inline-block">
-                            <h2 class="text-white">99%</h2>
-                            <p class="text-white mb-0">Jan - March 2019</p>
-                        </div>
-                        <span class="float-right display-5 opacity-5"><i class="fa fa-heart"></i></span>
-                    </div>
-                </div>
-            </div>
+
         </div>
 
 

@@ -1,3 +1,21 @@
+<?php 
+session_start();
+
+if(!isset($_SESSION['halaman'])){
+    echo"
+        <script>
+            window.location.replace('index.php');
+        </script>
+    ";
+}
+
+$nomor = $_SESSION['nomor'];
+$conn = mysqli_connect('localhost','root','','db_asistendosen');
+$result = mysqli_query($conn, "SELECT * FROM tb_user WHERE nomor='$nomor'");
+$row = mysqli_fetch_assoc($result);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,13 +23,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    
+
     <!-- theme meta -->
     <meta name="theme-name" content="quixlab" />
-  
-    <title>Quixlab - Bootstrap Admin Dashboard Template by Themefisher.com</title>
+
+    <title>Seleksi Asisten Dosen Universitas Dipa Makassar</title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/Logo-Universitas-Dipa-Makassar.png">
     <!-- Pignose Calender -->
     <link href="./plugins/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet">
     <!-- Chartist -->
@@ -19,6 +37,17 @@
     <link rel="stylesheet" href="./plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css">
     <!-- Custom Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+
+    <!-- Icon FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+    .upper {
+        text-transform: uppercase;
+        color: white;
+    }
+    </style>
+
 
 </head>
 
@@ -38,7 +67,7 @@
         Preloader end
     ********************-->
 
-    
+
     <!--**********************************
         Main wrapper start
     ***********************************-->
@@ -49,12 +78,9 @@
         ***********************************-->
         <div class="nav-header">
             <div class="brand-logo">
-                <a href="index.html">
-                    <b class="logo-abbr"><img src="images/logo.png" alt=""> </b>
+                <a href="#">
                     <span class="logo-compact"><img src="./images/logo-compact.png" alt=""></span>
-                    <span class="brand-title">
-                        <img src="images/logo-text.png" alt="">
-                    </span>
+                    <h4 class="upper"><?= $row['status'] ?></h4>
                 </a>
             </div>
         </div>
@@ -65,42 +91,34 @@
         <!--**********************************
             Header start
         ***********************************-->
-        <div class="header">    
+        <div class="header">
             <div class="header-content clearfix">
-                
+
                 <div class="nav-control">
                     <div class="hamburger">
                         <span class="toggle-icon"><i class="icon-menu"></i></span>
                     </div>
                 </div>
                 <div class="header-right">
-                    
-                        <li class="icons dropdown">
-                            <div class="user-img c-pointer position-relative"   data-toggle="dropdown">
-                                <span class="activity active"></span>
-                                <img src="images/user/1.png" height="40" width="40" alt="">
+
+                    <li class="icons dropdown">
+                        <div class="user-img c-pointer position-relative" data-toggle="dropdown">
+                            <span class="activity active"></span>
+                            <img src="images/user/1.png" height="40" width="40" alt="">
+                        </div>
+                        <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
+                            <div class="dropdown-content-body">
+                                <ul>
+                                    <li>
+                                        <a href="app-profile.html"><i class="icon-user"></i> <span>Profile</span></a>
+                                    </li>
+
+                                    <li><a href="logOut.php" onclick="return confirm('Yakin Mau Keluar ?')"><i
+                                                class="icon-key"></i> <span>Logout</span></a></li>
+                                </ul>
                             </div>
-                            <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
-                                <div class="dropdown-content-body">
-                                    <ul>
-                                        <li>
-                                            <a href="app-profile.html"><i class="icon-user"></i> <span>Profile</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void()">
-                                                <i class="icon-envelope-open"></i> <span>Inbox</span> <div class="badge gradient-3 badge-pill gradient-1">3</div>
-                                            </a>
-                                        </li>
-                                        
-                                        <hr class="my-2">
-                                        <li>
-                                            <a href="page-lock.html"><i class="icon-lock"></i> <span>Lock Screen</span></a>
-                                        </li>
-                                        <li><a href="page-login.html"><i class="icon-key"></i> <span>Logout</span></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
+                        </div>
+                    </li>
                     </ul>
                 </div>
             </div>
@@ -112,50 +130,40 @@
         <!--**********************************
             Sidebar start
         ***********************************-->
-        <div class="nk-sidebar">           
+        <div class="nk-sidebar">
             <div class="nk-nav-scroll">
                 <ul class="metismenu" id="menu">
-                    <li class="nav-label">Dashboard</li>
+                    <li class="nav-label"><?= $row['username'] ?></li>
                     <li>
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+
+                        <a class="has-arrow" href="dashboard.php" aria-expanded="false">
                             <i class="icon-speedometer menu-icon"></i><span class="nav-text">Dashboard</span>
                         </a>
-                      
+
                     </li>
-                                        
-                    <li class="nav-label">Forms</li>
+
+                    <li class="nav-label">Fitur Aplikasi</li>
                     <li>
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon-note menu-icon"></i><span class="nav-text">Forms</span>
+                        <a class="has-arrow" href="mataKuliah.php" aria-expanded="false">
+                            <i class="icon-note menu-icon"></i><span class="nav-text">Mata Kuliah</span>
                         </a>
-                        <ul aria-expanded="false">
-                            <li><a href="./form-basic.html">Basic Form</a></li>
-                            <li><a href="./form-validation.html">Form Validation</a></li>
-                            <li><a href="./form-step.html">Step Form</a></li>
-                            <li><a href="./form-editor.html">Editor</a></li>
-                            <li><a href="./form-picker.html">Picker</a></li>
-                        </ul>
                     </li>
-                    <li class="nav-label">Table</li>
-                    <li>
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon-menu menu-icon"></i><span class="nav-text">Table</span>
+                    <li><a class="has-arrow" href="dataPeserta.php" aria-expanded="false">
+                            <i class="fa-solid fa-user-tie"></i><span class="nav-text">Peserta Asdos</span>
                         </a>
-                        <ul aria-expanded="false">
-                            <li><a href="./table-basic.html" aria-expanded="false">Basic Table</a></li>
-                            <li><a href="./table-datatable.html" aria-expanded="false">Data Table</a></li>
-                        </ul>
+
                     </li>
-                 
-                    <li>
-                            <li><a href="./page-login.html">Login</a></li>
-                            <li><a href="./page-register.html">Register</a></li>
-                     
+                    <li><a class="has-arrow" href="penilaian.php" aria-expanded="false"><i
+                                class="fa-solid fa-bookmark"></i><span class="nav-text">Penilaian</span></a>
                     </li>
+
+                    <li><a href="logOut.php" onclick="return confirm('Yakin Mau Keluar')"><i
+                                class="fa-solid fa-arrow-right-from-bracket"></i><span class="nav-text">Log
+                                Out</span></a></li>
+
                 </ul>
             </div>
         </div>
         <!--**********************************
             Sidebar end
         ***********************************-->
-     
