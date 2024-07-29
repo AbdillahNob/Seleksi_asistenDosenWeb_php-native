@@ -41,8 +41,21 @@ require 'template/header.php'
                                         <td>3.57</td>
                                         <td>89</td>
                                         <td>80</td>
-                                        <td><span class="badge badge-primary px-2">Lulus</td>
-                                        <td>Input Nilai dan Edit</td>
+                                        <td>
+                                            <form method="POST" action="">
+                                                <button type="submit" class="btn mb-1 btn-rounded btn-danger">Tidak
+                                                    Lulus</button>
+                                            </form>
+                                        </td>
+                                        <td>
+                                            <div class="">
+                                                <a href="inputNilai.php?id_penilaian='2'"><button
+                                                        class="btn mb-2 btn-primary" type="button" title="Input">Input
+                                                        Nilai Tes</button></a>
+                                                <a href="#"><button class="btn mb-2 btn-success" type="button"
+                                                        title="Edit">Edit</button></a>
+                                            </div>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <th>2</th>
@@ -53,8 +66,21 @@ require 'template/header.php'
                                         <td>3.57</td>
                                         <td>89</td>
                                         <td>80</td>
-                                        <td><span class="badge badge-danger px-2">Tidak Lulus</td>
-                                        <td>Input Nilai dan Edit</td>
+                                        <td>
+                                            <form method="POST" action="">
+                                                <button type="submit"
+                                                    class="btn mb-1 btn-rounded btn-success">Lulus</button>
+                                            </form>
+                                        </td>
+                                        <td>
+                                            <div class="">
+                                                <a href="inputNilai.php?id_penilaian='2'"><button
+                                                        class="btn mb-2 btn-primary" type="button" title="Input">Input
+                                                        Nilai Tes</button></a>
+                                                <a href="#"><button class="btn mb-2 btn-success" type="button"
+                                                        title="Edit">Edit</button></a>
+                                            </div>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <th>3</th>
@@ -65,8 +91,21 @@ require 'template/header.php'
                                         <td>3.57</td>
                                         <td>89</td>
                                         <td>80</td>
-                                        <td><span class="badge badge-primary px-2">Lulus</td>
-                                        <td>Input Nilai dan Edit</td>
+                                        <td>
+                                            <form method="POST" action="">
+                                                <button type="submit"
+                                                    class="btn mb-1 btn-rounded btn-success">Lulus</button>
+                                            </form>
+                                        </td>
+                                        <td>
+                                            <div class="">
+                                                <a href="inputNilai.php?id_penilaian='2'"><button
+                                                        class="btn mb-2 btn-primary" type="button" title="Input">Input
+                                                        Nilai Tes</button></a>
+                                                <a href="#"><button class="btn mb-2 btn-success" type="button"
+                                                        title="Edit">Edit</button></a>
+                                            </div>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>

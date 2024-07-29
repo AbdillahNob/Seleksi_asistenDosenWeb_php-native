@@ -1,6 +1,8 @@
 <?php 
 require 'function/function.php';
-require 'template/header.php'
+require 'template/header.php';
+
+$query_matkul = view("SELECT * FROM tb_matkul");
 
 ?>
 
@@ -15,8 +17,10 @@ require 'template/header.php'
                         <div class="card-title">
                             <h4>Mata Kuliah Praktikum</h4>
                         </div>
+                        <a href="tambah_matkul.php"><button class="btn btn-primary" type="submit"
+                                title="Tambah">Tambah</button></a>
                         <div class="table-responsive text-nowrap">
-                            <table class="table table-hover">
+                            <table class="table table-hover table-bordered">
                                 <thead>
                                     <tr>
                                         <th>No</th>
@@ -28,38 +32,39 @@ require 'template/header.php'
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
+                                <?php 
+                                $n = 1;
+                                while($row = mysqli_fetch_assoc($query_matkul)) :                            
+                                ?>
                                 <tbody>
                                     <tr>
-                                        <th>1</th>
-                                        <td>Kolor Tea Shirt For Man </td>
-                                        <td><span class="badge badge-primary px-2">Sale</span>
+                                        <th>
+                                            <p align="center"><?= $n++ ?></p>
+                                        </th>
+                                        <td><?= $row['kode_matkul']; ?></td>
+                                        <td><?= $row['nama_matkul']; ?></td>
+                                        <td>
+                                            <p align="center"><?= $row['semester']; ?></p>
                                         </td>
-                                        <td>2</td>
-                                        <td>January 22</td>
-                                        <td class="color-primary">$21.56</td>
-                                        <td>Edit dan Hapus</td>
-                                    </tr>
-                                    <tr>
-                                        <th>2</th>
-                                        <td>Kolor Tea Shirt For Women</td>
-                                        <td><span class="badge badge-danger px-2">Tax</span>
+                                        <td><span class="badge badge-primary px-2"><?= $row['jadwalTes']; ?></td>
+                                        <td class="color-primary">
+                                            <p align="center"><?= $row['jumlah_kelas']; ?></p>
                                         </td>
-                                        <td>2</td>
-                                        <td>January 30</td>
-                                        <td class="color-success">$55.32</td>
-                                        <td>Edit dan Hapus</td>
-                                    </tr>
-                                    <tr>
-                                        <th>3</th>
-                                        <td>Blue Backpack For Baby</td>
-                                        <td><span class="badge badge-success px-2">Extended</span>
+                                        <td>
+                                            <div class="">
+                                                <a href="edit_matkul.php?id_matkul=<?= $row['id_matkul']; ?>"><button
+                                                        class="btn mb-2 btn-success" type="button" title="Edit"><i
+                                                            class="fas fa-edit"></i></button></a>
+                                                <a
+                                                    href="hapus_matkul.php?id_matkul=<?= $row['id_matkul']; ?> && no_file=2"><button
+                                                        class="btn mb-2 btn-danger" type="button" title="Hapus"
+                                                        onclick="return confirm('Yakin Mau Hapus ?')"><i
+                                                            class="fas fa-trash-alt"></i></button></a>
+                                            </div>
                                         </td>
-                                        <td>2</td>
-                                        <td>January 25</td>
-                                        <td class="color-danger">$14.85</td>
-                                        <td>Edit dan Hapus</td>
                                     </tr>
                                 </tbody>
+                                <?php endwhile; ?>
                             </table>
                         </div>
                     </div>

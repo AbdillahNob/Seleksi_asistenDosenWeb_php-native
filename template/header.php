@@ -41,6 +41,13 @@ $row = mysqli_fetch_assoc($result);
     <!-- Icon FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+
+
     <style>
     .upper {
         text-transform: uppercase;
@@ -48,14 +55,11 @@ $row = mysqli_fetch_assoc($result);
     }
     </style>
 
-
 </head>
 
 <body>
 
-    <!--*******************
-        Preloader start
-    ********************-->
+
     <div id="preloader">
         <div class="loader">
             <svg class="circular" viewBox="25 25 50 50">
@@ -63,34 +67,19 @@ $row = mysqli_fetch_assoc($result);
             </svg>
         </div>
     </div>
-    <!--*******************
-        Preloader end
-    ********************-->
 
-
-    <!--**********************************
-        Main wrapper start
-    ***********************************-->
     <div id="main-wrapper">
 
-        <!--**********************************
-            Nav header start
-        ***********************************-->
         <div class="nav-header">
             <div class="brand-logo">
                 <a href="#">
-                    <span class="logo-compact"><img src="./images/logo-compact.png" alt=""></span>
-                    <h4 class="upper"><?= $row['status'] ?></h4>
+                    <span class="nav-text">
+                        <h4 class="upper"><?= $row['status'] ?></h4>
+                    </span>
                 </a>
             </div>
         </div>
-        <!--**********************************
-            Nav header end
-        ***********************************-->
 
-        <!--**********************************
-            Header start
-        ***********************************-->
         <div class="header">
             <div class="header-content clearfix">
 
@@ -123,17 +112,20 @@ $row = mysqli_fetch_assoc($result);
                 </div>
             </div>
         </div>
-        <!--**********************************
-            Header end ti-comment-alt
-        ***********************************-->
 
-        <!--**********************************
-            Sidebar start
-        ***********************************-->
         <div class="nk-sidebar">
             <div class="nk-nav-scroll">
                 <ul class="metismenu" id="menu">
                     <li class="nav-label"><?= $row['username'] ?></li>
+                    <?php if($row['status'] == 'mahasiswa') : ?>
+                    <li>
+                        <a class="has-arrow" href="jadwalTes.php" aria-expanded="false">
+                            <i class="icon-note menu-icon"></i><span class="nav-text">Jadwal Tes</span>
+                        </a>
+                    </li>
+                    <?php endif; ?>
+
+                    <?php if($row['status'] !== 'mahasiswa') : ?>
                     <li>
 
                         <a class="has-arrow" href="dashboard.php" aria-expanded="false">
@@ -141,21 +133,23 @@ $row = mysqli_fetch_assoc($result);
                         </a>
 
                     </li>
-
                     <li class="nav-label">Fitur Aplikasi</li>
+                    <li><a class="has-arrow" href="dataPeserta.php" aria-expanded="false">
+                            <i class="fa-solid fa-users"></i><span class="nav-text">Peserta Asdos</span>
+                        </a>
+
+                    </li>
+                    <?php endif; ?>
+                    <?php if($row['status'] == 'admin') : ?>
                     <li>
                         <a class="has-arrow" href="mataKuliah.php" aria-expanded="false">
                             <i class="icon-note menu-icon"></i><span class="nav-text">Mata Kuliah</span>
                         </a>
                     </li>
-                    <li><a class="has-arrow" href="dataPeserta.php" aria-expanded="false">
-                            <i class="fa-solid fa-user-tie"></i><span class="nav-text">Peserta Asdos</span>
-                        </a>
-
-                    </li>
                     <li><a class="has-arrow" href="penilaian.php" aria-expanded="false"><i
                                 class="fa-solid fa-bookmark"></i><span class="nav-text">Penilaian</span></a>
                     </li>
+                    <?php endif; ?>
 
                     <li><a href="logOut.php" onclick="return confirm('Yakin Mau Keluar')"><i
                                 class="fa-solid fa-arrow-right-from-bracket"></i><span class="nav-text">Log
@@ -164,6 +158,3 @@ $row = mysqli_fetch_assoc($result);
                 </ul>
             </div>
         </div>
-        <!--**********************************
-            Sidebar end
-        ***********************************-->

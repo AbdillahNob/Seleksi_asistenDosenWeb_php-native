@@ -13,19 +13,18 @@ require 'template/header.php'
                 <div class="card">
                     <div class="card-body">
                         <div class="card-title">
-                            <h4>Daftar Peserta Asdos</h4>
+                            <h4>Mata Kuliah Praktikum</h4>
                         </div>
-                        <a href="tambah_peserta.php"><button class="btn btn-primary" type="submit"
-                                title="Tambah">Tambah</button></a>
                         <div class="table-responsive text-nowrap">
-                            <table class="table table-striped">
+                            <table class="table table-hover">
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Nama Lengkap</th>
-                                        <th>Nim</th>
+                                        <th>Kode</th>
+                                        <th>Nama Mata Kuliah</th>
                                         <th>Semester</th>
-                                        <th>IPK</th>
+                                        <th>Jadwal Tes</th>
+                                        <th>Jumlah Kelas</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -37,13 +36,11 @@ require 'template/header.php'
                                         </td>
                                         <td>2</td>
                                         <td>January 22</td>
+                                        <td class="color-primary">$21.56</td>
                                         <td>
                                             <div class="">
-                                                <a href="edit_peserta.php"><button class="btn mb-2 btn-success"
-                                                        type="button" title="Edit"><i
-                                                            class="fas fa-edit"></i></button></a>
-                                                <a href="#"><button class="btn mb-2 btn-danger" type="button"
-                                                        title="Hapus"><i class="fas fa-trash-alt"></i></button></a>
+                                                <a href="edit_matkul.php"><button class="btn mb-2 btn-primary"
+                                                        type="button" title="Daftar">DAFTAR</button></a>
                                             </div>
                                         </td>
                                     </tr>
@@ -54,13 +51,11 @@ require 'template/header.php'
                                         </td>
                                         <td>2</td>
                                         <td>January 30</td>
+                                        <td class="color-success">$55.32</td>
                                         <td>
                                             <div class="">
-                                                <a href="edit_peserta.php"><button class="btn mb-2 btn-success"
-                                                        type="button" title="Edit"><i
-                                                            class="fas fa-edit"></i></button></a>
-                                                <a href="#"><button class="btn mb-2 btn-danger" type="button"
-                                                        title="Hapus"><i class="fas fa-trash-alt"></i></button></a>
+                                                <a href="edit_matkul.php"><button class="btn mb-2 btn-primary"
+                                                        type="button" title="Daftar">DAFTAR</button></a>
                                             </div>
                                         </td>
                                     </tr>
@@ -71,13 +66,11 @@ require 'template/header.php'
                                         </td>
                                         <td>2</td>
                                         <td>January 25</td>
+                                        <td class="color-danger">$14.85</td>
                                         <td>
                                             <div class="">
-                                                <a href="edit_peserta.php"><button class="btn mb-2 btn-success"
-                                                        type="button" title="Edit"><i
-                                                            class="fas fa-edit"></i></button></a>
-                                                <a href="#"><button class="btn mb-2 btn-danger" type="button"
-                                                        title="Hapus"><i class="fas fa-trash-alt"></i></button></a>
+                                                <a href="edit_matkul.php"><button class="btn mb-2 btn-primary"
+                                                        type="button" title="Daftar">DAFTAR</button></a>
                                             </div>
                                         </td>
                                     </tr>
