@@ -1,5 +1,9 @@
 <?php 
 require 'template/header.php';
+require 'function/function.php';
+
+$query_matkul = view("SELECT * FROM tb_matkul");
+
 
 ?>
 <div class="content-body">
@@ -24,8 +28,8 @@ require 'template/header.php';
                     <div class="card-body">
                         <h3 class="card-title text-white">Mata Kuliah Praktikum</h3>
                         <div class="d-inline-block">
-                            <h2 class="text-white">10</h2>
-                            <p class="text-white mb-0">Jan - March 2019</p>
+                            <h2 class="text-white"><?= mysqli_num_rows($query_matkul); ?></h2>
+                            <p class="text-white mb-0">September - Desember 2024</p>
                         </div>
                         <span class="float-right display-5 opacity-5"><i class="fa-solid fa-receipt"></i></span>
                     </div>

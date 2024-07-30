@@ -5,7 +5,7 @@ require 'function/function.php';
 $id_matkul = $_GET['id_matkul'];
 $no_file = $_GET['no_file'];
 
-if(delete($id_matkul, $no_file)){
+if(delete($id_matkul, $no_file) > 0){
     echo"
         <script type='text/javascript'>
             setTimeout(function () {

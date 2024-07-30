@@ -16,6 +16,7 @@ function insert($data, $no_file){
     // no_file
     // 1. user
     // 2. Mata Kuliah
+    // 3. Peserta Asdos/Mahasiswa
 
     if($no_file == 1){
         $username = strtolower(stripslashes($data['username']));
@@ -61,6 +62,23 @@ function insert($data, $no_file){
         $query = "INSERT INTO tb_matkul (kode_matkul, nama_matkul, semester, jadwalTes, jumlah_kelas) VALUES('$kode_mataKuliah','$nama_mataKuliah','$semester','$jadwalTes','$jumlahKelas')";
 
 
+    }else if($no_file == 3){
+        $namaMahasiswa = mysqli_real_escape_string($conn, stripslashes($data['nama-mahasiswa']));
+        $nim = $data['nim'];
+        $semester = $data['semester'];
+        $ipk = $data['ipk'];
+
+        $result = mysqli_query($conn, "SELECT * FROM tb_mahasiswa WHERE nim='$nim'");
+        if(mysqli_num_rows($result) > 0 ){
+            echo "
+            <script>
+                alert('Maaf Nim anda sudah terdaftar sebelumnya');
+            </script>
+        ";
+        return false;
+        }
+
+        $query = "INSERT INTO tb_mahasiswa (namaMahasiswa, nim, semester, ipk) VALUES('$namaMahasiswa','$nim','$semester','$ipk')";
     }
     else{
         return false;
@@ -73,7 +91,8 @@ function insert($data, $no_file){
 function update ($data, $no_file){
     global $conn;
 
-    // 1. Mata Kuliah
+    // 2. Mata Kuliah
+    // 3. Mahasiswa/Peserta
 
     if($no_file == 2){
         
@@ -108,7 +127,45 @@ function update ($data, $no_file){
                     jadwalTes='$jadwalTes',
                     jumlah_kelas='$jumlahKelas'
                     WHERE id_matkul='$id_matkul'";
-    }else{
+    }else if($no_file ==  3){
+        $id_mahasiswa = $data['id_mahasiswa'];
+        $namaMahasiswa = mysqli_real_escape_string($conn, stripslashes($data['nama-mahasiswa']));
+        $nimBaru = $data['nimBaru'];
+        $nimLama = $data['nimLama'];
+        $semesterBaru = $data['semesterBaru'];
+        $ipk = $data['ipk'];
+
+        $result = mysqli_query($conn, "SELECT * FROM tb_mahasiswa WHERE nim='$nimBaru'");
+        // Validasi agr Nim baru yg di Input tdk sama dgn nim yg sdh trdftr sebelumnya
+        if(mysqli_num_rows($result) > 0 && $nimBaru !=$nimLama){
+            echo "
+            <script>
+                alert('Maaf Nim yang Anda input sudah terdaftar sebelumnya');
+            </script>
+        ";
+        return false;   
+        }
+
+        if(!$semesterBaru){
+            $semester = $data['semesterLama'];
+        }else{
+            $semester = $semesterBaru;
+        }
+
+        if(!$nimBaru){
+            $nim = $nimLama;
+        }else{
+            $nim = $nimBaru;
+        }
+
+        $query = "UPDATE tb_mahasiswa SET                            
+                            namaMahasiswa='$namaMahasiswa',
+                            nim='$nim',
+                            semester='$semester',
+                            ipk='$ipk' WHERE id_mahasiswa='$id_mahasiswa'";
+        
+    }
+    else{
         return false;
     }
     mysqli_query($conn, $query);
@@ -116,14 +173,20 @@ function update ($data, $no_file){
     return mysqli_affected_rows($conn);
 }
 
-function delete($id_matkul, $no_file){
+function delete($id, $no_file){
 
     global $conn;
     // 2. Mata Kuliah
+    // 3. Mahasiswa/Peserta
 
     if($no_file == 2){
+        $id_matkul = $id;
         $query = "DELETE FROM tb_matkul WHERE id_matkul='$id_matkul'";
-    }else{
+    }else if($no_file == 3){
+        $id_mahasiswa = $id;
+        $query = "DELETE FROM tb_mahasiswa WHERE id_mahasiswa = '$id_mahasiswa'";
+    }
+    else{
         return false;
     }
 
