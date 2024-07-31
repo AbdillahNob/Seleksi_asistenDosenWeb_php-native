@@ -46,7 +46,7 @@ if(isset($_POST['login']) && isset($_POST['status']) ){
                     },10);
                     window.setTimeout(function(){
                         window.location.replace('dashboard.php');
-                    },2500);
+                    },2000);
                 </script>
                 ";
 
@@ -65,7 +65,7 @@ if(isset($_POST['login']) && isset($_POST['status']) ){
                     },10);
                     window.setTimeout(function(){
                         window.location.replace('index.php');
-                    },2500);
+                    },1500);
                 </script>
                 ";
             }

@@ -1,5 +1,8 @@
 <?php 
+
 session_start();
+
+$nomor = $_SESSION['nomor'];
 
 if(!isset($_SESSION['halaman'])){
     echo"
@@ -14,6 +17,9 @@ $conn = mysqli_connect('localhost','root','','db_asistendosen');
 $result = mysqli_query($conn, "SELECT * FROM tb_user WHERE nomor='$nomor'");
 $row = mysqli_fetch_assoc($result);
 
+
+// utk mengetahui apakah nomor/nim ini sdh daftar
+$query_mahasiswa = mysqli_query($conn, "SELECT * FROM tb_mahasiswa WHERE nim='$nomor'");
 ?>
 
 <!DOCTYPE html>
@@ -119,10 +125,18 @@ $row = mysqli_fetch_assoc($result);
                     <li class="nav-label"><?= $row['username'] ?></li>
                     <?php if($row['status'] == 'mahasiswa') : ?>
                     <li>
+                        <a class="has-arrow" href="registrasiMahasiswa.php" aria-expanded="false">
+                            <i class="fas fa-user-shield"></i><span class="nav-text">Registrasi</span>
+                        </a>
+                    </li>
+                    <!-- Jika Nomor/NIM yang login sdh regitrasi -->
+                    <?php if(mysqli_num_rows($query_mahasiswa) > 0):?>
+                    <li>
                         <a class="has-arrow" href="jadwalTes.php" aria-expanded="false">
                             <i class="icon-note menu-icon"></i><span class="nav-text">Jadwal Tes</span>
                         </a>
                     </li>
+                    <?php endif; ?>
                     <?php endif; ?>
 
                     <?php if($row['status'] !== 'mahasiswa') : ?>

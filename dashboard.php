@@ -3,6 +3,7 @@ require 'template/header.php';
 require 'function/function.php';
 
 $query_matkul = view("SELECT * FROM tb_matkul");
+$query_pesertaAsdos = view("SELECT * FROM tb_mahasiswa");
 
 
 ?>
@@ -15,8 +16,8 @@ $query_matkul = view("SELECT * FROM tb_matkul");
                     <div class="card-body">
                         <h3 class="card-title text-white">Peserta Asdos</h3>
                         <div class="d-inline-block">
-                            <h2 class="text-white">45</h2>
-                            <p class="text-white mb-0">Jan - March 2019</p>
+                            <h2 class="text-white"><?= mysqli_num_rows($query_pesertaAsdos); ?></h2>
+                            <p class="text-white mb-0">September 10-20 2024</p>
                         </div>
                         <span class="float-right display-5 opacity-5"><i
                                 class="fa-solid fa-chalkboard-user"></i></i></span>

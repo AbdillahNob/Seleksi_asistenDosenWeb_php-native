@@ -1,6 +1,8 @@
 <?php 
 require 'function/function.php';
-require 'template/header.php'
+require 'template/header.php';
+
+$query_matkul = view("SELECT * FROM tb_matkul");
 
 ?>
 
@@ -28,53 +30,27 @@ require 'template/header.php'
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
+                                <?php 
+                                    $n = 1;
+                                    while($row = mysqli_fetch_assoc($query_matkul)) : ?>
                                 <tbody>
                                     <tr>
-                                        <th>1</th>
-                                        <td>Kolor Tea Shirt For Man </td>
-                                        <td><span class="badge badge-primary px-2">Sale</span>
-                                        </td>
-                                        <td>2</td>
-                                        <td>January 22</td>
-                                        <td class="color-primary">$21.56</td>
+                                        <th><?= $n++; ?></th>
+                                        <td><?= $row['kode_matkul']; ?></td>
+                                        <td><?= $row['nama_matkul'] ?></td>
+                                        <td><?= $row['semester'] ?></td>
+                                        <td class="color-primary"><?= $row['jadwalTes']; ?></td>
+                                        <td><?= $row['jumlah_kelas'] ?></td>
                                         <td>
                                             <div class="">
-                                                <a href="edit_matkul.php"><button class="btn mb-2 btn-primary"
-                                                        type="button" title="Daftar">DAFTAR</button></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>2</th>
-                                        <td>Kolor Tea Shirt For Women</td>
-                                        <td><span class="badge badge-danger px-2">Tax</span>
-                                        </td>
-                                        <td>2</td>
-                                        <td>January 30</td>
-                                        <td class="color-success">$55.32</td>
-                                        <td>
-                                            <div class="">
-                                                <a href="edit_matkul.php"><button class="btn mb-2 btn-primary"
-                                                        type="button" title="Daftar">DAFTAR</button></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>3</th>
-                                        <td>Blue Backpack For Baby</td>
-                                        <td><span class="badge badge-success px-2">Extended</span>
-                                        </td>
-                                        <td>2</td>
-                                        <td>January 25</td>
-                                        <td class="color-danger">$14.85</td>
-                                        <td>
-                                            <div class="">
-                                                <a href="edit_matkul.php"><button class="btn mb-2 btn-primary"
-                                                        type="button" title="Daftar">DAFTAR</button></a>
+                                                <a href="daftarAsdos.php?id_matkul=<?= $row['id_matkul'] ?>"><button
+                                                        class="btn mb-2 btn-primary" type="button"
+                                                        title="Daftar">DAFTAR</button></a>
                                             </div>
                                         </td>
                                     </tr>
                                 </tbody>
+                                <?php endwhile; ?>
                             </table>
                         </div>
                     </div>

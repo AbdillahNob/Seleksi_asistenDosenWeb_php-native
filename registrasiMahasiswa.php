@@ -1,24 +1,30 @@
 <?php 
-require 'function/function.php';
 require 'template/header.php';
+require 'function/function.php';
+
+
+$nomor = $_SESSION['nomor'];
+$query_user = view("SELECT * FROM tb_user WHERE nomor='$nomor'");
+$row = mysqli_fetch_assoc($query_user);
+
 
 if(isset($_POST['submit'])){
     $no_file = $_GET['no_file'];
-    if(insert($_POST,$no_file) > 0){
+    if(insert($_POST, $no_file) > 0){
         echo"
         <script type='text/javascript'>
             setTimeout(function () {
                 Swal.fire({
                     title: 'INFO',
-                    text: 'Berhasil Tambah Peserta Asdos',
+                    text: 'Anda Berhasil Registrasi',
                     icon: 'success',
                     timer: '3200',
                     showConfirmButton: false
                 });
             },10);
             window.setTimeout(function(){
-                window.location.replace('dataPeserta.php');
-            },2500);
+                window.location.replace('jadwalTes.php');
+            },2000);
         </script>
         ";  
     }else{
@@ -27,21 +33,22 @@ if(isset($_POST['submit'])){
             setTimeout(function () {
                 Swal.fire({
                     title: 'INFO',
-                    text: 'Gagal Tambah Peserta Asdos',
+                    text: 'Anda Gagal Registrasi',
                     icon: 'warning',
                     timer: '3200',
                     showConfirmButton: false
                 });
             },10);
             window.setTimeout(function(){
-                window.location.replace('dataPeserta.php');
-            },2500);
+                window.location.replace('jadwalTes.php');
+            },1500);
         </script>
         ";
     }
 }
 
 ?>
+
 
 <div class="content-body">
     <div class="container-fluid">
@@ -50,24 +57,24 @@ if(isset($_POST['submit'])){
                 <div class="card">
                     <div class="card-body">
                         <div class="form-validation">
-                            <h3>Edit Peserta Asdos</h3>
+                            <h3>Registrasi Peserta Calon Asisten Dosen</h3>
                             <form class="form-valide" action="?no_file=3" method="post">
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label" for="nama-mahasiswa">Nama Mahasiswa<span
+                                    <label class="col-lg-4 col-form-label" for="nim">Nim Anda <span
+                                            class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input type="text" class="form-control" id="nim" name="nim" required
+                                            value="<?= $row['nomor']; ?>" readonly />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="nama-mahasiswa">Nama Lengkap<span
                                             class="text-danger">*</span>
                                     </label>
                                     <div class="col-lg-6">
                                         <input type="text" class="form-control" id="nama-mahasiswa"
-                                            name="nama-mahasiswa" placeholder="Masukkan Nama Mahasiswa.." required />
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label" for="nim">Nim<span
-                                            class="text-danger">*</span>
-                                    </label>
-                                    <div class="col-lg-6">
-                                        <input type="text" class="form-control" id="nim" name="nim"
-                                            placeholder="Masukkan Nim.." required />
+                                            name="nama-mahasiswa" placeholder="Masukkan nama Lengkap Anda.." required />
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -84,6 +91,8 @@ if(isset($_POST['submit'])){
                                             <option value="5">5</option>
                                             <option value="6">6</option>
                                             <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
                                         </select>
                                     </div>
                                 </div>
@@ -114,7 +123,7 @@ if(isset($_POST['submit'])){
     </div>
 </div>
 
-<?php 
-    require 'template/footer.php';
 
-?>
+<?php 
+require 'template/footer.php';
+ ?>

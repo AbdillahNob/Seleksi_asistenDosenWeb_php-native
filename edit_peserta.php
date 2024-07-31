@@ -20,7 +20,7 @@ if(isset($_POST['submit'])){
             },10);
             window.setTimeout(function(){
                 window.location.replace('dataPeserta.php');
-            },2500);
+            },2000);
         </script>
         ";  
     }else{
@@ -37,7 +37,7 @@ if(isset($_POST['submit'])){
             },10);
             window.setTimeout(function(){
                 window.location.replace('dataPeserta.php');
-            },2500);
+            },1500);
         </script>
         ";
     }
@@ -67,7 +67,7 @@ if(isset($_POST['submit'])){
                                     <div class="col-lg-6">
                                         <input type="text" class="form-control" id="nama-mahasiswa"
                                             name="nama-mahasiswa" placeholder="Masukkan Nama Mahasiswa.."
-                                            value="<?= $row['namaMahasiswa'] ?>" />
+                                            value="<?= $row['namaLengkap'] ?>" />
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -76,7 +76,7 @@ if(isset($_POST['submit'])){
                                     </label>
                                     <div class="col-lg-6">
                                         <input type="text" class="form-control" id="nimBaru" name="nimBaru"
-                                            placeholder="Masukkan Nim.." value="<?= $row['nim'] ?>" />
+                                            placeholder="Masukkan Nim.." value="<?= $row['nim'] ?>" readonly />
                                     </div>
                                 </div>
                                 <div class="form-group row">

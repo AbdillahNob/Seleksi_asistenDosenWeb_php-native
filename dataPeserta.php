@@ -17,8 +17,7 @@ $query_peserta = view("SELECT * FROM tb_mahasiswa");
                         <div class="card-title">
                             <h4>Daftar Peserta Asdos</h4>
                         </div>
-                        <a href="tambah_peserta.php"><button class="btn btn-primary" type="submit"
-                                title="Tambah">Tambah</button></a>
+
                         <div class="table-responsive text-nowrap">
                             <table class="table table-hover table-bordered">
                                 <thead>
@@ -37,7 +36,7 @@ $query_peserta = view("SELECT * FROM tb_mahasiswa");
                                 <tbody>
                                     <tr>
                                         <th style="text-align: center;"><?= $n++; ?></th>
-                                        <td><?= $row['namaMahasiswa']; ?></td>
+                                        <td><?= $row['namaLengkap']; ?></td>
                                         <td><?= $row['nim']; ?></td>
                                         <td><?= $row['semester']; ?></td>
                                         <td><?= number_format($row['ipk'], 2); ?></td>

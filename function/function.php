@@ -78,7 +78,33 @@ function insert($data, $no_file){
         return false;
         }
 
-        $query = "INSERT INTO tb_mahasiswa (namaMahasiswa, nim, semester, ipk) VALUES('$namaMahasiswa','$nim','$semester','$ipk')";
+        $query = "INSERT INTO tb_mahasiswa (nim, namaLengkap, semester, ipk) VALUES('$nim','$namaMahasiswa','$semester','$ipk')";
+    }
+    else if($no_file == 4){
+        $id_mahasiswa = $data['id_mahasiswa'];
+        $id_matkul = $data['id_matkul'];
+        $nilai_matkul = $data['nilai-matkul'];
+
+        // Validasi agr Peserta tdk mendaftar 2X pada MATKUL yang sama.
+        $result = mysqli_query($conn, "SELECT * FROM tb_penilaian WHERE id_matkul='$id_matkul' AND id_mahasiswa='$id_mahasiswa'");
+        if(mysqli_num_rows($result) > 0){
+            echo "
+            <script>
+                alert('Maaf Anda hanya bisa mendaftar 1X pada mata kuliah ini');
+            </script>
+        ";
+        return false;
+        }
+        if($nilai_matkul < 3.50){
+            echo "
+            <script>
+                alert('Nilai Mata Kuliah Anda tidak memenuhi Standar !');
+            </script>
+        ";
+        return false;
+        }
+
+        $query = "INSERT INTO tb_penilaian (id_matkul, id_mahasiswa, nilaiMatkul) VALUES ('$id_matkul','$id_mahasiswa','$nilai_matkul')";
     }
     else{
         return false;
@@ -159,7 +185,7 @@ function update ($data, $no_file){
         }
 
         $query = "UPDATE tb_mahasiswa SET                            
-                            namaMahasiswa='$namaMahasiswa',
+                            namaLengkap='$namaMahasiswa',
                             nim='$nim',
                             semester='$semester',
                             ipk='$ipk' WHERE id_mahasiswa='$id_mahasiswa'";

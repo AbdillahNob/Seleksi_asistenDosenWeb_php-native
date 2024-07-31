@@ -21,7 +21,7 @@ if(isset($_POST['submit'])){
             },10);
             window.setTimeout(function(){
                 window.location.replace('mataKuliah.php');
-            },2500);
+            },2000);
         </script>
         ";  
     }else{
@@ -38,7 +38,7 @@ if(isset($_POST['submit'])){
             },10);
             window.setTimeout(function(){
                 window.location.replace('mataKuliah.php');
-            },2500);
+            },1500);
         </script>
         ";
     }

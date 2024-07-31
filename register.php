@@ -32,7 +32,7 @@ if(isset($_POST['submit']) && isset($_POST['status'])){
                     },10);
                     window.setTimeout(function(){
                         window.location.replace('index.php');
-                    },2500);
+                    },2000);
                 </script>
                 ";
 
@@ -51,7 +51,7 @@ if(isset($_POST['submit']) && isset($_POST['status'])){
                     },10);
                     window.setTimeout(function(){
                         window.location.replace('index.php');
-                    },2500);
+                    },1500);
                 </script>
                 ";
             }
