@@ -2,8 +2,6 @@
 
 session_start();
 
-$nomor = $_SESSION['nomor'];
-
 if(!isset($_SESSION['halaman'])){
     echo"
         <script>

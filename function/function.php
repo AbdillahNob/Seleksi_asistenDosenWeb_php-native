@@ -17,6 +17,7 @@ function insert($data, $no_file){
     // 1. user
     // 2. Mata Kuliah
     // 3. Peserta Asdos/Mahasiswa
+    // 4. Pendaftaran Asdos
 
     if($no_file == 1){
         $username = strtolower(stripslashes($data['username']));
@@ -85,6 +86,7 @@ function insert($data, $no_file){
         $id_matkul = $data['id_matkul'];
         $nilai_matkul = $data['nilai-matkul'];
 
+
         // Validasi agr Peserta tdk mendaftar 2X pada MATKUL yang sama.
         $result = mysqli_query($conn, "SELECT * FROM tb_penilaian WHERE id_matkul='$id_matkul' AND id_mahasiswa='$id_mahasiswa'");
         if(mysqli_num_rows($result) > 0){
@@ -99,6 +101,18 @@ function insert($data, $no_file){
             echo "
             <script>
                 alert('Nilai Mata Kuliah Anda tidak memenuhi Standar !');
+            </script>
+        ";
+        return false;
+        }
+
+        // Validasi IPK Mahasiswa yang mendaftar
+        $nilaiIpk = mysqli_query($conn, "SELECT ipk FROM tb_mahasiswa WHERE id_mahasiswa='$id_mahasiswa'");
+        while($nilaiIpkD = mysqli_fetch_assoc($nilaiIpk));
+        if($nilaiIpkD['ipk'] < 3.50){
+            echo "
+            <script>
+                alert('IPK Anda tidak memenuhi Standar !');
             </script>
         ";
         return false;
@@ -119,6 +133,7 @@ function update ($data, $no_file){
 
     // 2. Mata Kuliah
     // 3. Mahasiswa/Peserta
+    // 4. Input Nilai Tes Asdos
 
     if($no_file == 2){
         
@@ -190,6 +205,22 @@ function update ($data, $no_file){
                             semester='$semester',
                             ipk='$ipk' WHERE id_mahasiswa='$id_mahasiswa'";
         
+    }else if($no_file == 4){
+        $id_penilaian = $data['id_penilaian'];
+        $id_matkul = $data['id_matkul'];
+        $id_mahasiswa = $data['id_mahasiswa'];
+        $nilai_matkul= $data['nilai_matkul'];
+        $nilai_ujian = $data['nilai-ujian'];
+        $nilai_wawancara = $data['nilai-wawancara'];
+        $nilaiTotalTes = ($nilai_ujian + $nilai_wawancara)/2;
+
+        $query =  "UPDATE tb_penilaian SET
+                                        id_matkul='$id_matkul',
+                                        id_mahasiswa='$id_mahasiswa',
+                                        nilaiMatkul='$nilai_matkul',
+                                        nilaiUjian='$nilai_ujian',
+                                        nilaiWawancara='$nilai_wawancara',
+                                        nilaiTotalTes='$nilaiTotalTes' WHERE id_penilaian='$id_penilaian'";
     }
     else{
         return false;
