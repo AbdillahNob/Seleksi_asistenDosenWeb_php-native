@@ -107,8 +107,8 @@ function insert($data, $no_file){
         }
 
         // Validasi IPK Mahasiswa yang mendaftar
-        $nilaiIpk = mysqli_query($conn, "SELECT ipk FROM tb_mahasiswa WHERE id_mahasiswa='$id_mahasiswa'");
-        while($nilaiIpkD = mysqli_fetch_assoc($nilaiIpk));
+        $nilaiIpk = mysqli_query($conn, "SELECT * FROM tb_mahasiswa WHERE id_mahasiswa='$id_mahasiswa'");
+        $nilaiIpkD = mysqli_fetch_assoc($nilaiIpk);
         if($nilaiIpkD['ipk'] < 3.50){
             echo "
             <script>
@@ -230,6 +230,30 @@ function update ($data, $no_file){
     return mysqli_affected_rows($conn);
 }
 
+function updateHasil($data){
+    global $conn;
+
+    $id_penilaian = $data['id_penilaian'];
+    $hasil = $data['hasil'];
+    $method = $data['method'];
+    // $token = $data['token'];
+
+    // if($token != $_SESSION['csrf_token']){
+    //     echo"
+    //     <script>
+    //         alert('Token Csrf tidak Valid');
+    //     </script>
+    //     ";
+    //     return false;
+    // }
+
+    $hasilBaru = ($hasil== 'belum_ada')? 'lulus':'belum_ada';
+    mysqli_query($conn,"UPDATE tb_penilaian SET hasil='$hasilBaru' WHERE id_penilaian='$id_penilaian'");
+    
+    return mysqli_affected_rows($conn);
+
+}
+
 function delete($id, $no_file){
 
     global $conn;
@@ -250,5 +274,6 @@ function delete($id, $no_file){
     mysqli_query($conn, $query);
     return mysqli_affected_rows($conn);
 }
+
 
 ?>

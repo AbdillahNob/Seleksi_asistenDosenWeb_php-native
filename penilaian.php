@@ -2,6 +2,9 @@
 require 'function/function.php';
 require 'template/header.php';
 
+// utk REFRESH Sessionnya agr bs masuk ke id_matkul yg lainny
+unset($_SESSION['id_matkul']);    
+
 $query_matkul = view("SELECT * FROM tb_matkul");
 
 ?>
@@ -25,7 +28,7 @@ $query_matkul = view("SELECT * FROM tb_matkul");
                                         <th>Kode</th>
                                         <th>Mata Kuliah</th>
                                         <th>Semester</th>
-                                        <th>jadwal Tes</th>
+                                        <th>Jadwal Tes</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
