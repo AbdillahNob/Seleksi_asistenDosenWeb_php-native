@@ -99,10 +99,11 @@ $rowM = mysqli_fetch_assoc($query_mahasiswa);
                         class="btn btn-success">Download Surat
                         Rekomendasi
                         Anda</a>
+
                     <?php else: ?>
                     <span class="badge badge-warning px-2">Anda belum di berikan Surat Rekomendasi oleh Dosen</span>
-                    <?php endif; ?>
 
+                    <?php endif; ?>
                     <?php endif; ?>
                 </div>
                 <div class="header-right">
@@ -134,6 +135,15 @@ $rowM = mysqli_fetch_assoc($query_mahasiswa);
             <div class="nk-nav-scroll">
                 <ul class="metismenu" id="menu">
                     <li class="nav-label"><?= $row['username'] ?></li>
+
+                    <li>
+
+                        <a class="has-arrow" href="dashboard.php" aria-expanded="false">
+                            <i class="icon-speedometer menu-icon"></i><span class="nav-text">Dashboard</span>
+                        </a>
+
+                    </li>
+                    <li class="nav-label">Fitur Aplikasi</li>
                     <?php if($row['status'] == 'mahasiswa') : ?>
                     <li>
                         <a class="has-arrow" href="registrasiMahasiswa.php" aria-expanded="false">
@@ -143,7 +153,8 @@ $rowM = mysqli_fetch_assoc($query_mahasiswa);
                     <!-- Jika Nomor/NIM yang login sdh regitrasi -->
                     <?php if(mysqli_num_rows($query_mahasiswa) > 0):?>
                     <li>
-                        <a class="has-arrow" href="jadwalTes.php" aria-expanded="false">
+                        <a class="has-arrow" href="jadwalTes.php?id_mahasiswa=<?= $rowM['id_mahasiswa']; ?>"
+                            aria-expanded="false">
                             <i class="icon-note menu-icon"></i><span class="nav-text">Jadwal Tes</span>
                         </a>
                     </li>
@@ -151,14 +162,6 @@ $rowM = mysqli_fetch_assoc($query_mahasiswa);
                     <?php endif; ?>
 
                     <?php if($row['status'] !== 'mahasiswa') : ?>
-                    <li>
-
-                        <a class="has-arrow" href="dashboard.php" aria-expanded="false">
-                            <i class="icon-speedometer menu-icon"></i><span class="nav-text">Dashboard</span>
-                        </a>
-
-                    </li>
-                    <li class="nav-label">Fitur Aplikasi</li>
                     <li><a class="has-arrow" href="dataPeserta.php?status=<?= $row['status'] ?>" aria-expanded="false">
                             <i class="fa-solid fa-users"></i><span class="nav-text">Peserta Asdos</span>
                         </a>

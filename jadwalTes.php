@@ -2,6 +2,10 @@
 require 'function/function.php';
 require 'template/header.php';
 
+$id_mahasiswa = $_GET['id_mahasiswa'];
+
+$query_mahasiswa = view("SELECT * FROM tb_mahasiswa WHERE id_mahasiswa='$id_mahasiswa'");
+$rowM = mysqli_fetch_assoc($query_mahasiswa);
 $query_matkul = view("SELECT * FROM tb_matkul");
 
 ?>
@@ -27,7 +31,7 @@ $query_matkul = view("SELECT * FROM tb_matkul");
                                         <th>Semester</th>
                                         <th>Jadwal Tes</th>
                                         <th>Jumlah Kelas</th>
-                                        <th>Aksi</th>
+                                        <th>Daftar</th>
                                     </tr>
                                 </thead>
                                 <?php 
@@ -42,11 +46,19 @@ $query_matkul = view("SELECT * FROM tb_matkul");
                                         <td class="color-primary"><?= $row['jadwalTes']; ?></td>
                                         <td><?= $row['jumlah_kelas'] ?></td>
                                         <td>
+                                            <?php if($rowM['suratRekomendasi'] ==  true): ?>
                                             <div class="">
                                                 <a href="daftarAsdos.php?id_matkul=<?= $row['id_matkul'] ?>"><button
                                                         class="btn mb-2 btn-primary" type="button"
                                                         title="Daftar">DAFTAR</button></a>
                                             </div>
+                                            <?php else: ?>
+                                            <div class="">
+                                                <span class="badge badge-danger px-2">Harus Di berikan Surat Rekomendasi
+                                                    dari
+                                                    DOSEN !</span>
+                                            </div>
+                                            <?php endif; ?>
                                         </td>
                                     </tr>
                                 </tbody>

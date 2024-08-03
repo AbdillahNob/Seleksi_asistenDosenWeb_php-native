@@ -4,6 +4,7 @@ require 'function/function.php';
 
 $query_matkul = view("SELECT * FROM tb_matkul");
 $query_pesertaAsdos = view("SELECT * FROM tb_mahasiswa");
+$query_penilaian = view("SELECT * FROM tb_penilaian tb_penilaian WHERE hasil='lulus'");
 
 
 ?>
@@ -41,7 +42,7 @@ $query_pesertaAsdos = view("SELECT * FROM tb_mahasiswa");
                     <div class="card-body">
                         <h3 class="card-title text-white">Asdos yang di Terima</h3>
                         <div class="d-inline-block">
-                            <h2 class="text-white">23</h2>
+                            <h2 class="text-white"><?= mysqli_num_rows($query_penilaian); ?></h2>
                             <p class="text-white mb-0">Jan - March 2019</p>
                         </div>
                         <span class="float-right display-5 opacity-5"><i class="fas fa-users"></i></span>
