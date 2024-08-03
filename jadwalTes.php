@@ -31,7 +31,7 @@ $query_matkul = view("SELECT * FROM tb_matkul");
                                         <th>Semester</th>
                                         <th>Jadwal Tes</th>
                                         <th>Jumlah Kelas</th>
-                                        <th>Daftar</th>
+                                        <th>Administrasi</th>
                                     </tr>
                                 </thead>
                                 <?php 
@@ -51,6 +51,11 @@ $query_matkul = view("SELECT * FROM tb_matkul");
                                                 <a href="daftarAsdos.php?id_matkul=<?= $row['id_matkul'] ?>"><button
                                                         class="btn mb-2 btn-primary" type="button"
                                                         title="Daftar">DAFTAR</button></a>
+                                            </div>
+                                            <div class="">
+                                                <a href="pengumuman.php?id_matkul=<?= $row['id_matkul']; ?>"><button
+                                                        class="btn mb-2 btn-success" type="button"
+                                                        title="Daftar">PENGUMUMAN</button></a>
                                             </div>
                                             <?php else: ?>
                                             <div class="">

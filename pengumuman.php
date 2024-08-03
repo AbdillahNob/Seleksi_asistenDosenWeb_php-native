@@ -16,18 +16,11 @@ $query_penilaian = view("SELECT tb_penilaian.id_penilaian, tb_mahasiswa.namaLeng
                         JOIN tb_mahasiswa ON tb_penilaian.id_mahasiswa = tb_mahasiswa.id_mahasiswa
                         WHERE tb_penilaian.id_matkul ='$id_matkul' ORDER BY nilaiTotalTes DESC
                         ");
-
 $query_matkul = view("SELECT * FROM tb_matkul WHERE id_matkul='$id_matkul'");                        
 $rowM = mysqli_fetch_assoc($query_matkul);
 
 
-// $csrfToken = $_SESSION['csrf_token'];
 
-// if(!$csrfToken){
-//     $csrfToken = bin2hex(random_bytes(32));
-//     $_SESSION['csrf_token'] = $csrfToken;
-// }
-    
 if(isset($_POST['submit'])){
     // agr stlh update Hasil, id_matkul sebelumnya di halaman ini ttp di ada
     $_SESSION['id_matkul'] = $_POST['id_matkul'];
@@ -55,7 +48,7 @@ if(isset($_POST['submit'])){
                 <div class="card">
                     <div class="card-body">
                         <div class="card-title">
-                            <h4>Penilaian Peserta <?= $rowM['nama_matkul']; ?></h4>
+                            <h4>PENGUMUMAN Peserta <?= $rowM['nama_matkul'] ?></h4>
                         </div>
                         <div class="table-responsive text-nowrap">
                             <table class="table table-hover">
@@ -70,7 +63,7 @@ if(isset($_POST['submit'])){
                                         <th>Nilai Wawancara</th>
                                         <th>Total Nilai Tes</th>
                                         <th>Hasil</th>
-                                        <th>Aksi</th>
+
                                     </tr>
                                 </thead>
                                 <?php $n =1;
@@ -88,28 +81,11 @@ if(isset($_POST['submit'])){
                                         <td><?= $row['nilaiWawancara'] ?></td>
                                         <td><?= $row['nilaiTotalTes'] ?></td>
                                         <td>
-                                            <form method="POST" action="">
-                                                <input type="hidden" name="id_penilaian"
-                                                    value="<?= $row['id_penilaian'] ?>">
-                                                <input type="hidden" name="id_matkul" value="<?= $id_matkul ?>">
-                                                <input type="hidden" name="hasil" value="<?= $row['hasil'] ?>">
-                                                <input type="hidden" name="method" value="PUT">
-                                                <!-- <input type="hidden" name="token"
-                                                    value="<?= htmlspecialchars($csrfToken) ?>"> -->
+                                            <button
+                                                class="btn mb-1 btn-rounded <?= $row['hasil']=='belum_ada'?'btn-danger':'btn-success' ?>">
+                                                <?= htmlspecialchars($row['hasil']=='belum_ada'?'belum_ada':'lulus') ?></button>
+                                        </td>
 
-                                                <button type="submit"
-                                                    class="btn mb-1 btn-rounded <?= htmlspecialchars($row['hasil']=='belum_ada'?'btn-danger':'btn-success') ?>"
-                                                    name="submit"><?= htmlspecialchars($row['hasil']=='belum_ada'?'belum_ada':'lulus') ?></button>
-                                            </form>
-                                        </td>
-                                        <td>
-                                            <div class="">
-                                                <a
-                                                    href="inputNilai.php?id_penilaian=<?= $row['id_penilaian'] ?> && id_matkul=<?= $id_matkul ?>"><button
-                                                        class="btn mb-2 btn-primary" type="button" title="Input">Input
-                                                        Nilai Tes</button></a>
-                                            </div>
-                                        </td>
                                     </tr>
                                     <?php endwhile; ?>
                                 </tbody>
