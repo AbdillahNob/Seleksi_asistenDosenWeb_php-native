@@ -134,6 +134,11 @@ function update ($data, $no_file){
     // 2. Mata Kuliah
     // 3. Mahasiswa/Peserta
     // 4. Input Nilai Tes Asdos
+    // 5. Serahkan Surat Rekomendasi ke PESERTA/MAHASISWA
+
+    if($no_file == 5 || $no_file == 6){
+        $surat = upload($no_file);
+    }
 
     if($no_file == 2){
         
@@ -221,6 +226,10 @@ function update ($data, $no_file){
                                         nilaiUjian='$nilai_ujian',
                                         nilaiWawancara='$nilai_wawancara',
                                         nilaiTotalTes='$nilaiTotalTes' WHERE id_penilaian='$id_penilaian'";
+    } else if($no_file == 5){
+        $id_mahasiswa = $data;
+
+    $query = "UPDATE tb_mahasiswa SET suratRekomendasi='$surat' WHERE id_mahasiswa='$id_mahasiswa'";
     }
     else{
         return false;
@@ -251,6 +260,51 @@ function updateHasil($data){
     mysqli_query($conn,"UPDATE tb_penilaian SET hasil='$hasilBaru' WHERE id_penilaian='$id_penilaian'");
     
     return mysqli_affected_rows($conn);
+
+}
+
+function upload($no_file){
+    
+    $namaFile = $_FILES['surat']['name'];
+    $ukuranFile = $_FILES['surat']['size'];
+    $tmpFile = $_FILES['surat']['tmp_name'];
+    // $error = $_FILES['gambar']['error'];
+
+    // Validasi agr file harus pdf
+        $ekstensiValid = ["pdf"];
+        $ekstensiPdf = explode(".", $namaFile);
+        $ekstensiPdf = strtolower(end($ekstensiPdf));
+        if (!in_array($ekstensiPdf, $ekstensiValid)) {
+            echo "<script>
+                    alert('File harus Ber-Ekstensi pdf');
+                    </script>
+                ";
+            return false;
+        }    
+
+    // validasi size
+    if ($ukuranFile > 10000000) {
+        echo "<script>
+                alert('Ukuran file terlalu besar');
+                </script>
+            ";
+        return false;
+    }
+
+    if($no_file == 5){
+        $fileDIR = "images/suratRekomendasi/";
+    }
+
+// acak nama file foto biar tidak ada yang sama trus sambun dgn ekstensi foto
+$namaPdfBaru = uniqid();
+$namaPdfBaru .= ".";
+$namaPdfBaru .= $ekstensiPdf;
+
+$fileUpload = $fileDIR . basename($namaPdfBaru);
+
+// ambil foto dari server lalu pindahkan ke $fileupload yg isiny folder 
+move_uploaded_file($tmpFile, $fileUpload);
+return $namaPdfBaru;
 
 }
 

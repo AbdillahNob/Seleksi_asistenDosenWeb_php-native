@@ -146,7 +146,7 @@ $query_mahasiswa = mysqli_query($conn, "SELECT * FROM tb_mahasiswa WHERE nim='$n
 
                     </li>
                     <li class="nav-label">Fitur Aplikasi</li>
-                    <li><a class="has-arrow" href="dataPeserta.php" aria-expanded="false">
+                    <li><a class="has-arrow" href="dataPeserta.php?status=<?= $row['status'] ?>" aria-expanded="false">
                             <i class="fa-solid fa-users"></i><span class="nav-text">Peserta Asdos</span>
                         </a>
 

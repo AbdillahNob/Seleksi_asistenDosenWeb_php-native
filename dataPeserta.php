@@ -2,8 +2,55 @@
 require 'function/function.php';
 require 'template/header.php';
 
+if(isset($_SESSION['status'])){
+    $status = $_SESSION['status'];
+
+}else{
+    $status = $_GET['status'];
+}
 $query_peserta = view("SELECT * FROM tb_mahasiswa");
 
+if(isset($_POST['submit'])){
+    $no_file = $_POST['no_file'];
+    $id_mahasiswa = $_POST['id_mahasiswa'];
+    $_SESSION['status'] = $status;
+
+    if(update($id_mahasiswa,$no_file) > 0){
+         echo"
+        <script type='text/javascript'>
+            setTimeout(function () {
+                Swal.fire({
+                    title: 'INFO',
+                    text: 'Berhasil Serahkan Surat Rekomendasi',
+                    icon: 'success',
+                    timer: '3200',
+                    showConfirmButton: false
+                });
+            },10);
+            window.setTimeout(function(){
+                window.location.replace('dataPeserta.php');
+            },1500);
+        </script>
+        ";    
+    }else{
+        echo"
+        <script type='text/javascript'>
+            setTimeout(function () {
+                Swal.fire({
+                    title: 'INFO',
+                    text: 'Gagal Serahkan Surat Rekomendasi',
+                    icon: 'warning',
+                    timer: '3200',
+                    showConfirmButton: false
+                });
+            },10);
+            window.setTimeout(function(){
+                window.location.replace('dataPeserta.php');
+            },1500);
+        </script>
+        ";  
+    }
+}
 ?>
 
 <div class="content-body">
@@ -27,6 +74,10 @@ $query_peserta = view("SELECT * FROM tb_mahasiswa");
                                         <th>Nim</th>
                                         <th>Semester</th>
                                         <th>IPK</th>
+                                        <th>Surat Rekomendasi</th>
+                                        <?php if($status == 'dosen'): ?>
+                                        <th>Surat Rekomendasi</th>
+                                        <?php endif; ?>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -40,6 +91,21 @@ $query_peserta = view("SELECT * FROM tb_mahasiswa");
                                         <td><?= $row['nim']; ?></td>
                                         <td><?= $row['semester']; ?></td>
                                         <td><?= number_format($row['ipk'], 2); ?></td>
+                                        <td><span
+                                                class="badge badge-<?= $row['suratRekomendasi']==true?'primary':'danger' ?> px-3">
+                                                <?= $row['suratRekomendasi']==true?'Telah DiSerahkan':'Belum Diserahkan' ?>
+                                        </td>
+                                        <?php if($status == 'dosen') :?>
+                                        <form role="form" action="" method="post" enctype="multipart/form-data">
+                                            <input type="hidden" name="no_file" value="5">
+                                            <input type="hidden" name="id_mahasiswa"
+                                                value="<?= $row['id_mahasiswa'] ?>">
+                                            <td><input type="file" name="surat" id="file">
+                                                <button type="submit" name="submit"
+                                                    class="btn mb-1 btn-primary">Serahkan</button>
+                                            </td>
+                                        </form>
+                                        <?php endif; ?>
                                         <td>
                                             <div class="">
                                                 <a href="edit_peserta.php?id_mahasiswa=<?= $row['id_mahasiswa'] ?>"><button

@@ -6,7 +6,6 @@ require 'template/header.php';
 if(isset($_SESSION['id_matkul'])){
     $id_matkul = $_SESSION['id_matkul'];
 
-
 }else{
     $id_matkul = $_GET['id_matkul'];
 }
@@ -25,7 +24,7 @@ $query_penilaian = view("SELECT tb_penilaian.id_penilaian, tb_mahasiswa.namaLeng
 //     $csrfToken = bin2hex(random_bytes(32));
 //     $_SESSION['csrf_token'] = $csrfToken;
 // }
-
+    
 if(isset($_POST['submit'])){
     // agr stlh update Hasil, id_matkul sebelumnya di halaman ini ttp di ada
     $_SESSION['id_matkul'] = $_POST['id_matkul'];
