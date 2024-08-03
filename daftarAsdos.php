@@ -59,7 +59,7 @@ if(isset($_POST['submit'])){
                     <div class="card-body">
                         <div class="form-validation">
                             <h3>Pendaftaran Asisten Dosen</h3>
-                            <form class="form-valide" action="" method="post">
+                            <form class="form-valide" action="" method="post" enctype="multipart/form-data">
                                 <input type="hidden" name="no_file" value="4">
                                 <input type="hidden" name="id_matkul" value="<?= $id_matkul ?>">
                                 <input type="hidden" name="id_mahasiswa" value="<?= $row['id_mahasiswa'] ?>">
@@ -71,6 +71,15 @@ if(isset($_POST['submit'])){
                                     <div class="col-lg-6">
                                         <input type="text" class="form-control" id="nilai-matkul" name="nilai-matkul"
                                             placeholder="Masukkan Nilai Bobot Anda..." required />
+                                    </div>
+
+                                </div>
+                                <div class="form-group row">
+                                    <label for="suratRekomendasi" class="col-lg-4 col-form-label">
+                                        Upload Surat Rekomendasi<span class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input type="file" class="form-control" id="surat" name="surat" required>
                                     </div>
                                 </div>
 

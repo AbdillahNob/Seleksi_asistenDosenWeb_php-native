@@ -191,7 +191,7 @@ if(isset($_POST['submit']) && isset($_POST['status'])){
                                     </div>
                                     <button class="btn login-form__btn submit w-100" name="submit">Sign in</button>
                                 </form>
-                                <p class="mt-5 login-form__footer">Have account <a href="page-login.html"
+                                <p class="mt-5 login-form__footer">Have account <a href="index.php"
                                         class="text-primary">Sign Up </a> now</p>
                                 </p>
                             </div>

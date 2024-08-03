@@ -86,8 +86,6 @@ if(isset($_POST['submit'])){
                                     <div class="col-lg-6">
                                         <select class="form-control" id="semesterBaru" name="semesterBaru">
                                             <option value="">Semester</option>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
                                             <option value="3">3</option>
                                             <option value="4">4</option>
                                             <option value="5">5</option>

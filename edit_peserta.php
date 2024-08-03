@@ -6,6 +6,7 @@ $id_mahasiswa = $_GET['id_mahasiswa'];
 $result = view("SELECT * FROM tb_mahasiswa WHERE id_mahasiswa='$id_mahasiswa'");
 if(isset($_POST['submit'])){
     $no_file = $_POST['no_file'];
+
     if(update($_POST, $no_file) > 0){
         echo"
         <script type='text/javascript'>
@@ -86,8 +87,6 @@ if(isset($_POST['submit'])){
                                     <div class="col-lg-6">
                                         <select class="form-control" id="semesterBaru" name="semesterBaru">
                                             <option value="">Semester</option>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
                                             <option value="3">3</option>
                                             <option value="4">4</option>
                                             <option value="5">5</option>

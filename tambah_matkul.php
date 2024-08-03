@@ -5,6 +5,19 @@ require 'template/header.php';
 if(isset($_POST['submit'])){
     $no_file = $_GET['no_file'];
     
+    $semester = $_POST['semester'];
+    if(!$semester){
+        echo "
+        <script>
+            alert('Maaf anda harus input Semester');
+            window.setTimeout(function(){
+                window.location.replace('tambah_matkul.php');
+            },500);
+        </script>
+    ";
+    return false;
+    }
+
     if(insert($_POST, $no_file) > 0){
         echo"
         <script type='text/javascript'>
@@ -80,8 +93,6 @@ if(isset($_POST['submit'])){
                                     <div class="col-lg-6">
                                         <select class="form-control" id="semester" name="semester" required>
                                             <option selected disabled>Semester</option>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
                                             <option value="3">3</option>
                                             <option value="4">4</option>
                                             <option value="5">5</option>

@@ -7,6 +7,7 @@ if(isset($_SESSION['status'])){
 
 }else{
     $status = $_GET['status'];
+    $_SESSION['status'] = $status;
 }
 $query_peserta = view("SELECT * FROM tb_mahasiswa");
 

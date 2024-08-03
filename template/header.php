@@ -18,6 +18,8 @@ $row = mysqli_fetch_assoc($result);
 
 // utk mengetahui apakah nomor/nim ini sdh daftar
 $query_mahasiswa = mysqli_query($conn, "SELECT * FROM tb_mahasiswa WHERE nim='$nomor'");
+$rowM = mysqli_fetch_assoc($query_mahasiswa);
+
 ?>
 
 <!DOCTYPE html>
@@ -91,6 +93,17 @@ $query_mahasiswa = mysqli_query($conn, "SELECT * FROM tb_mahasiswa WHERE nim='$n
                     <div class="hamburger">
                         <span class="toggle-icon"><i class="icon-menu"></i></span>
                     </div>
+                    <?php if($row['status'] == 'mahasiswa' && mysqli_num_rows($query_mahasiswa) > 0): ?>
+                    <?php if($rowM['suratRekomendasi'] == true ): ?>
+                    <a href="downloadSurat.php?id_mahasiswa=<?= $rowM['id_mahasiswa']?>"
+                        class="btn btn-success">Download Surat
+                        Rekomendasi
+                        Anda</a>
+                    <?php else: ?>
+                    <span class="badge badge-warning px-2">Anda belum di berikan Surat Rekomendasi oleh Dosen</span>
+                    <?php endif; ?>
+
+                    <?php endif; ?>
                 </div>
                 <div class="header-right">
 

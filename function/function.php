@@ -79,12 +79,24 @@ function insert($data, $no_file){
         return false;
         }
 
+          // Validasi agr inputan nilai tdk lebih dari 4.00
+          if($ipk > 4.00){
+            echo "
+            <script>
+                alert('Nilai Anda melebihi dari nilai Maksimal !');
+            </script>
+        ";
+        return false;
+        }
+
         $query = "INSERT INTO tb_mahasiswa (nim, namaLengkap, semester, ipk) VALUES('$nim','$namaMahasiswa','$semester','$ipk')";
     }
     else if($no_file == 4){
         $id_mahasiswa = $data['id_mahasiswa'];
         $id_matkul = $data['id_matkul'];
         $nilai_matkul = $data['nilai-matkul'];
+        
+        $surat_rekomendasi = upload($no_file);
 
 
         // Validasi agr Peserta tdk mendaftar 2X pada MATKUL yang sama.
@@ -106,6 +118,16 @@ function insert($data, $no_file){
         return false;
         }
 
+        // Validasi agr inputan nilai tdk lebih dari 4.00
+        if($nilai_matkul > 4.00){
+            echo "
+            <script>
+                alert('Nilai Anda melebihi dari nilai Maksimal !');
+            </script>
+        ";
+        return false;
+        }
+
         // Validasi IPK Mahasiswa yang mendaftar
         $nilaiIpk = mysqli_query($conn, "SELECT * FROM tb_mahasiswa WHERE id_mahasiswa='$id_mahasiswa'");
         $nilaiIpkD = mysqli_fetch_assoc($nilaiIpk);
@@ -118,7 +140,7 @@ function insert($data, $no_file){
         return false;
         }
 
-        $query = "INSERT INTO tb_penilaian (id_matkul, id_mahasiswa, nilaiMatkul) VALUES ('$id_matkul','$id_mahasiswa','$nilai_matkul')";
+        $query = "INSERT INTO tb_penilaian (id_matkul, id_mahasiswa, nilaiMatkul, suratRekomendasi) VALUES ('$id_matkul','$id_mahasiswa','$nilai_matkul','$surat_rekomendasi')";
     }
     else{
         return false;
@@ -136,9 +158,6 @@ function update ($data, $no_file){
     // 4. Input Nilai Tes Asdos
     // 5. Serahkan Surat Rekomendasi ke PESERTA/MAHASISWA
 
-    if($no_file == 5 || $no_file == 6){
-        $surat = upload($no_file);
-    }
 
     if($no_file == 2){
         
@@ -192,6 +211,16 @@ function update ($data, $no_file){
         return false;   
         }
 
+          // Validasi agr inputan nilai tdk lebih dari 4.00
+          if($ipk > 4.00){
+            echo "
+            <script>
+                alert('Nilai Anda melebihi dari nilai Maksimal !');
+            </script>
+        ";
+        return false;
+        }
+
         if(!$semesterBaru){
             $semester = $data['semesterLama'];
         }else{
@@ -219,6 +248,7 @@ function update ($data, $no_file){
         $nilai_wawancara = $data['nilai-wawancara'];
         $nilaiTotalTes = ($nilai_ujian + $nilai_wawancara)/2;
 
+
         $query =  "UPDATE tb_penilaian SET
                                         id_matkul='$id_matkul',
                                         id_mahasiswa='$id_mahasiswa',
@@ -228,6 +258,7 @@ function update ($data, $no_file){
                                         nilaiTotalTes='$nilaiTotalTes' WHERE id_penilaian='$id_penilaian'";
     } else if($no_file == 5){
         $id_mahasiswa = $data;
+        $surat = upload($no_file);
 
     $query = "UPDATE tb_mahasiswa SET suratRekomendasi='$surat' WHERE id_mahasiswa='$id_mahasiswa'";
     }
@@ -264,7 +295,10 @@ function updateHasil($data){
 }
 
 function upload($no_file){
-    
+
+    // 4. Daftar Asdos
+    // 5. Dosen Serahkan Surat Rekomendasi ke Mahasiswa
+
     $namaFile = $_FILES['surat']['name'];
     $ukuranFile = $_FILES['surat']['size'];
     $tmpFile = $_FILES['surat']['tmp_name'];
@@ -291,7 +325,10 @@ function upload($no_file){
         return false;
     }
 
-    if($no_file == 5){
+    if($no_file == 4){
+        $fileDIR = "images/suratRekomDaftar/";
+    }
+    else if($no_file == 5){
         $fileDIR = "images/suratRekomendasi/";
     }
 
