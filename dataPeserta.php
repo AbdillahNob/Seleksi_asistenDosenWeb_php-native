@@ -75,11 +75,13 @@ if(isset($_POST['submit'])){
                                         <th>Nim</th>
                                         <th>Semester</th>
                                         <th>IPK</th>
-                                        <th>Surat Rekomendasi</th>
+                                        <th>Keterangan Rekomendasi</th>
                                         <?php if($status == 'dosen'): ?>
                                         <th>Surat Rekomendasi</th>
                                         <?php endif; ?>
+                                        <?php if($status == 'admin'): ?>
                                         <th>Aksi</th>
+                                        <?php endif; ?>
                                     </tr>
                                 </thead>
                                 <?php $n = 1;
@@ -107,6 +109,7 @@ if(isset($_POST['submit'])){
                                             </td>
                                         </form>
                                         <?php endif; ?>
+                                        <?php if($status == 'admin'): ?>
                                         <td>
                                             <div class="">
                                                 <a href="edit_peserta.php?id_mahasiswa=<?= $row['id_mahasiswa'] ?>"><button
@@ -119,6 +122,7 @@ if(isset($_POST['submit'])){
                                                             class="fas fa-trash-alt"></i></button></a>
                                             </div>
                                         </td>
+                                        <?php endif; ?>
                                     </tr>
                                 </tbody>
                                 <?php endwhile; ?>
