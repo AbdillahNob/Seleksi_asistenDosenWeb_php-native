@@ -19,7 +19,7 @@ if(delete($id_matkul, $no_file) > 0){
             },10);
             window.setTimeout(function(){
                 window.location.replace('mataKuliah.php');
-            },2000);
+            },1000);
         </script>
         ";  
 }else{
@@ -36,7 +36,7 @@ if(delete($id_matkul, $no_file) > 0){
             },10);
             window.setTimeout(function(){
                 window.location.replace('mataKuliah.php');
-            },1500);
+            },1000);
         </script>
         ";
 }

@@ -11,6 +11,8 @@ $row = mysqli_fetch_assoc($result);
 
 if(isset($_POST['submit'])){
     $no_file = $_POST['no_file'];
+    
+    $_SESSION['id_mahasiswa'] = $_POST['id_mahasiswa'];
     if(insert($_POST, $no_file) > 0){
         echo"
         <script type='text/javascript'>

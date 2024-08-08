@@ -20,7 +20,7 @@ $no_file = $_GET['no_file'];
             },10);
             window.setTimeout(function(){
                 window.location.replace('dataPeserta.php');
-            },2000);
+            },1000);
         </script>
         ";  
     }else{

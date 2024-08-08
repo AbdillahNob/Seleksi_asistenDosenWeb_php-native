@@ -2,7 +2,12 @@
 require 'function/function.php';
 require 'template/header.php';
 
-$id_mahasiswa = $_GET['id_mahasiswa'];
+if(isset($_SESSION['id_mahasiswa'])){
+    $id_mahasiswa = $_SESSION['id_mahasiswa'];
+    unset($_SESSION['id_mahasiswa']);
+}else{
+    $id_mahasiswa = $_GET['id_mahasiswa'];
+}
 
 $query_mahasiswa = view("SELECT * FROM tb_mahasiswa WHERE id_mahasiswa='$id_mahasiswa'");
 $rowM = mysqli_fetch_assoc($query_mahasiswa);

@@ -63,7 +63,7 @@ if(isset($_POST['submit'])){
                 <div class="card">
                     <div class="card-body">
                         <div class="form-validation">
-                            <h3>Inputan Nilai Mahasiswa</h3>
+                            <h3>Inputan Nilai Tes Peserta</h3>
                             <?php while($row=mysqli_fetch_assoc($query_penilaian)): ?>
                             <form class="form-valide" action="" method="post">
                                 <input type="hidden" name="no_file" value="4">

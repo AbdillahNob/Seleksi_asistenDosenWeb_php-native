@@ -134,7 +134,7 @@ $rowM = mysqli_fetch_assoc($query_mahasiswa);
         <div class="nk-sidebar">
             <div class="nk-nav-scroll">
                 <ul class="metismenu" id="menu">
-                    <li class="nav-label"><?= $row['username'] ?></li>
+                    <li class="nav-label">Hello, <?= $row['username'] ?></li>
 
                     <li>
 

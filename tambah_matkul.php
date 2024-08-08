@@ -64,7 +64,7 @@ if(isset($_POST['submit'])){
                 <div class="card">
                     <div class="card-body">
                         <div class="form-validation">
-                            <h3>Tambah Matkul</h3>
+                            <h3>Tambah Mata Kuliah</h3>
                             <form class="form-valide" action="?no_file=2" method="post">
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="kode-mata-kuliah">Kode Mata Kuliah <span
@@ -93,6 +93,8 @@ if(isset($_POST['submit'])){
                                     <div class="col-lg-6">
                                         <select class="form-control" id="semester" name="semester" required>
                                             <option selected disabled>Semester</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
                                             <option value="3">3</option>
                                             <option value="4">4</option>
                                             <option value="5">5</option>

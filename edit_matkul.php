@@ -53,7 +53,7 @@ if(isset($_POST['submit'])){
                 <div class="card">
                     <div class="card-body">
                         <div class="form-validation">
-                            <h3>Edit Matkul</h3>
+                            <h3>Edit Mata Kuliah</h3>
                             <?php while($row = mysqli_fetch_assoc($query_matkul)) : ?>
                             <form class="form-valide" action="" method="post">
                                 <input type="hidden" name="no_file" value="2">
@@ -86,6 +86,8 @@ if(isset($_POST['submit'])){
                                     <div class="col-lg-6">
                                         <select class="form-control" id="semesterBaru" name="semesterBaru">
                                             <option value="">Semester</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
                                             <option value="3">3</option>
                                             <option value="4">4</option>
                                             <option value="5">5</option>

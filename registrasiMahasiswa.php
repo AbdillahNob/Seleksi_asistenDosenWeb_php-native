@@ -35,7 +35,7 @@ if(isset($_POST['submit'])){
                 });
             },10);
             window.setTimeout(function(){
-                window.location.replace('jadwalTes.php');
+                window.location.replace('dashboard.php');
             },2000);
         </script>
         ";  
