@@ -27,7 +27,6 @@ $query_matkul = view("SELECT * FROM tb_matkul");
                                         <th>Kode</th>
                                         <th>Nama Mata Kuliah</th>
                                         <th>Semester</th>
-                                        <th>Jadwal Tes</th>
                                         <th>Jumlah Kelas</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -46,7 +45,6 @@ $query_matkul = view("SELECT * FROM tb_matkul");
                                         <td>
                                             <p align="center"><?= $row['semester']; ?></p>
                                         </td>
-                                        <td><span class="badge badge-primary px-2"><?= $row['jadwalTes']; ?></td>
                                         <td class="color-primary">
                                             <p align="center"><?= $row['jumlah_kelas']; ?></p>
                                         </td>

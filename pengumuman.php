@@ -10,11 +10,11 @@ if(isset($_SESSION['id_matkul'])){
     $id_matkul = $_GET['id_matkul'];
 }
 
-$query_penilaian = view("SELECT tb_penilaian.id_penilaian, tb_mahasiswa.namaLengkap, tb_mahasiswa.nim, tb_mahasiswa.ipk,    
-                        tb_penilaian.nilaiMatkul, tb_penilaian.hasil, tb_penilaian.nilaiUjian, tb_penilaian.nilaiWawancara, tb_penilaian.nilaiTotalTes
-                        FROM tb_penilaian
-                        JOIN tb_mahasiswa ON tb_penilaian.id_mahasiswa = tb_mahasiswa.id_mahasiswa
-                        WHERE tb_penilaian.id_matkul ='$id_matkul' ORDER BY nilaiTotalTes DESC
+$query_pendaftaranAsdos = view("SELECT tb_pendaftaranasdos.id_pendaftaran, tb_mahasiswa.namaLengkap, tb_mahasiswa.nim, tb_mahasiswa.ipk, tb_mahasiswa.noTelpon,   
+                        tb_pendaftaranasdos.nilaiMatkul, tb_pendaftaranasdos.totalNilai, tb_pendaftaranasdos.hasil
+                        FROM tb_pendaftaranasdos
+                        JOIN tb_mahasiswa ON tb_pendaftaranasdos.id_mahasiswa = tb_mahasiswa.id_mahasiswa
+                        WHERE tb_pendaftaranasdos.id_matkul ='$id_matkul' ORDER BY totalNilai DESC
                         ");
 $query_matkul = view("SELECT * FROM tb_matkul WHERE id_matkul='$id_matkul'");                        
 $rowM = mysqli_fetch_assoc($query_matkul);
@@ -30,7 +30,7 @@ if(isset($_POST['submit'])){
         <script type='text/javascript'>
 
             window.setTimeout(function(){
-                window.location.replace('penilaianDetail.php');
+                window.location.replace('daftarAsdosDetail.php');
             },10);
         </script>
         ";  
@@ -57,17 +57,15 @@ if(isset($_POST['submit'])){
                                         <th>No</th>
                                         <th>Nim</th>
                                         <th>Nama Mahasiswa</th>
+                                        <th>No.Telpon/Wa</th>
                                         <th>IPK</th>
                                         <th>Mata Kuliah</th>
-                                        <th>Nilai Ujian</th>
-                                        <th>Nilai Wawancara</th>
-                                        <th>Total Nilai Tes</th>
                                         <th>Hasil</th>
 
                                     </tr>
                                 </thead>
                                 <?php $n =1;
-                                    while($row=mysqli_fetch_assoc($query_penilaian)):
+                                    while($row=mysqli_fetch_assoc($query_pendaftaranAsdos)):
                                 ?>
                                 <tbody>
                                     <tr>
@@ -75,11 +73,9 @@ if(isset($_POST['submit'])){
 
                                         <td><?= $row['nim'] ?></td>
                                         <td><?= $row['namaLengkap'] ?></td>
+                                        <td><?= $row['noTelpon'] ?></td>
                                         <td><?= $row['ipk'] ?></td>
                                         <td><?= $row['nilaiMatkul'] ?></td>
-                                        <td><?= $row['nilaiUjian'] ?></td>
-                                        <td><?= $row['nilaiWawancara'] ?></td>
-                                        <td><?= $row['nilaiTotalTes'] ?></td>
                                         <td>
                                             <button
                                                 class="btn mb-1 btn-rounded <?= $row['hasil']=='belum_ada'?'btn-danger':'btn-success' ?>">

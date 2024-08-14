@@ -98,15 +98,6 @@ if(isset($_POST['submit'])){
                                 </div>
 
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label" for="jadwal-tes">Jadwal Tes<span
-                                            class="text-danger">*</span>
-                                    </label>
-                                    <div class="col-lg-6">
-                                        <input type='datetime-local' class="form-control" id="jadwal-tes"
-                                            name="jadwal-tes" value="<?= $row['jadwalTes']; ?>" />
-                                    </div>
-                                </div>
-                                <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="jumlah-kelas">Jumlah Kelas <span
                                             class="text-danger">*</span>
                                     </label>

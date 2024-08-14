@@ -116,6 +116,16 @@ if(isset($_POST['submit'])){
                                             placeholder="Masukkan IPK..." required />
                                     </div>
                                 </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="noTelpon">
+                                        No Telepon/Wa <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input type="text" class="form-control" id="noTelpon" name="noTelpon"
+                                            placeholder="Masukkan No Telepon/Wa Anda..." required />
+                                    </div>
+
+                                </div>
 
                                 <div class="form-group row">
                                     <div class="col-lg-8 ml-auto">

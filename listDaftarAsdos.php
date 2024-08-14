@@ -34,7 +34,6 @@ $query_matkul = view("SELECT * FROM tb_matkul");
                                         <th>Kode</th>
                                         <th>Nama Mata Kuliah</th>
                                         <th>Semester</th>
-                                        <th>Jadwal Tes</th>
                                         <th>Jumlah Kelas</th>
                                         <th>Administrasi</th>
                                     </tr>
@@ -48,12 +47,11 @@ $query_matkul = view("SELECT * FROM tb_matkul");
                                         <td><?= $row['kode_matkul']; ?></td>
                                         <td><?= $row['nama_matkul'] ?></td>
                                         <td><?= $row['semester'] ?></td>
-                                        <td class="color-primary"><?= $row['jadwalTes']; ?></td>
                                         <td><?= $row['jumlah_kelas'] ?></td>
                                         <td>
                                             <?php if($rowM['suratRekomendasi'] ==  true): ?>
                                             <div class="">
-                                                <a href="daftarAsdos.php?id_matkul=<?= $row['id_matkul'] ?>"><button
+                                                <a href="registrasiAsdos.php?id_matkul=<?= $row['id_matkul'] ?>"><button
                                                         class="btn mb-2 btn-primary" type="button"
                                                         title="Daftar">DAFTAR</button></a>
                                             </div>

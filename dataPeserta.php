@@ -75,6 +75,7 @@ if(isset($_POST['submit'])){
                                         <th>Nim</th>
                                         <th>Semester</th>
                                         <th>IPK</th>
+                                        <th>No.Telpon/Wa</th>
                                         <th>Keterangan Rekomendasi</th>
                                         <?php if($status == 'dosen'): ?>
                                         <th>Surat Rekomendasi</th>
@@ -94,6 +95,7 @@ if(isset($_POST['submit'])){
                                         <td><?= $row['nim']; ?></td>
                                         <td><?= $row['semester']; ?></td>
                                         <td><?= number_format($row['ipk'], 2); ?></td>
+                                        <td><?= $row['noTelpon'] ?></td>
                                         <td><span
                                                 class="badge badge-<?= $row['suratRekomendasi']==true?'primary':'danger' ?> px-3">
                                                 <?= $row['suratRekomendasi']==true?'Telah DiSerahkan':'Belum Diserahkan' ?>

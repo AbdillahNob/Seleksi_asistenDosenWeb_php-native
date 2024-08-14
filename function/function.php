@@ -16,8 +16,8 @@ function insert($data, $no_file){
     // no_file
     // 1. user
     // 2. Mata Kuliah
-    // 3. Peserta Asdos/Mahasiswa
-    // 4. Pendaftaran Asdos
+    // 3. Registrasi Mahasiswa
+    // 4. Registrasi Asdos
 
     if($no_file == 1){
         $username = strtolower(stripslashes($data['username']));
@@ -46,8 +46,7 @@ function insert($data, $no_file){
     } else if($no_file == 2){
         $kode_mataKuliah = $data['kode-mata-kuliah'];
         $nama_mataKuliah = mysqli_real_escape_string($conn, stripslashes($data['nama-mata-kuliah']));
-        $semester = $data['semester'];
-        $jadwalTes = $data['jadwal-tes'];
+        $semester = $data['semester'];        
         $jumlahKelas = $data['jumlah-kelas'];
 
         $result = mysqli_query($conn, "SELECT * FROM tb_matkul WHERE kode_matkul='$kode_mataKuliah'");
@@ -60,13 +59,14 @@ function insert($data, $no_file){
                 ";
                 return false;
         }
-        $query = "INSERT INTO tb_matkul (kode_matkul, nama_matkul, semester, jadwalTes, jumlah_kelas) VALUES('$kode_mataKuliah','$nama_mataKuliah','$semester','$jadwalTes','$jumlahKelas')";
+        $query = "INSERT INTO tb_matkul (kode_matkul, nama_matkul, semester,jumlah_kelas) VALUES('$kode_mataKuliah','$nama_mataKuliah','$semester','$jumlahKelas')";
 
 
     }else if($no_file == 3){
         $namaMahasiswa = mysqli_real_escape_string($conn, stripslashes($data['nama-mahasiswa']));
         $nim = $data['nim'];
         $semester = $data['semester'];
+        $noTelpon = $data['noTelpon'];
         $ipk = $data['ipk'];
 
         $result = mysqli_query($conn, "SELECT * FROM tb_mahasiswa WHERE nim='$nim'");
@@ -89,7 +89,7 @@ function insert($data, $no_file){
         return false;
         }
 
-        $query = "INSERT INTO tb_mahasiswa (nim, namaLengkap, semester, ipk) VALUES('$nim','$namaMahasiswa','$semester','$ipk')";
+        $query = "INSERT INTO tb_mahasiswa (nim, namaLengkap, semester, ipk, noTelpon) VALUES('$nim','$namaMahasiswa','$semester','$ipk', '$noTelpon')";
     }
     else if($no_file == 4){
         $id_mahasiswa = $data['id_mahasiswa'];
@@ -100,7 +100,7 @@ function insert($data, $no_file){
 
 
         // Validasi agr Peserta tdk mendaftar 2X pada MATKUL yang sama.
-        $result = mysqli_query($conn, "SELECT * FROM tb_penilaian WHERE id_matkul='$id_matkul' AND id_mahasiswa='$id_mahasiswa'");
+        $result = mysqli_query($conn, "SELECT * FROM tb_pendaftaranasdos WHERE id_matkul='$id_matkul' AND id_mahasiswa='$id_mahasiswa'");
         if(mysqli_num_rows($result) > 0){
             echo "
             <script>
@@ -140,7 +140,8 @@ function insert($data, $no_file){
         return false;
         }
 
-        $query = "INSERT INTO tb_penilaian (id_matkul, id_mahasiswa, nilaiMatkul, suratRekomendasi) VALUES ('$id_matkul','$id_mahasiswa','$nilai_matkul','$surat_rekomendasi')";
+        $totalNilai = ($nilai_matkul + $nilaiIpkD['ipk'])/2;
+        $query = "INSERT INTO tb_pendaftaranasdos (id_matkul, id_mahasiswa, nilaiMatkul,totalNilai, suratRekomendasi) VALUES ('$id_matkul','$id_mahasiswa','$nilai_matkul','$totalNilai','$surat_rekomendasi')";
     }
     else{
         return false;
@@ -165,7 +166,6 @@ function update ($data, $no_file){
     $kodeMatkul = $data['kode-mata-kuliah'];
     $namaMatkul = mysqli_real_escape_string($conn, stripslashes($data['nama-mata-kuliah']));
     $semesterBaru = $data['semesterBaru'];    
-    $jadwalTes = $data['jadwal-tes'];
     $jumlahKelas = $data['jumlah-kelas'];
 
     $result = mysqli_query($conn, "SELECT * FROM tb_matkul WHERE kode_matkul='$kodeMatkul'");
@@ -188,8 +188,7 @@ function update ($data, $no_file){
     $query = "UPDATE tb_matkul SET 
                     kode_matkul='$kodeMatkul',
                     nama_matkul='$namaMatkul',
-                    semester='$semester',
-                    jadwalTes='$jadwalTes',
+                    semester='$semester',                    
                     jumlah_kelas='$jumlahKelas'
                     WHERE id_matkul='$id_matkul'";
     }else if($no_file ==  3){
@@ -199,6 +198,7 @@ function update ($data, $no_file){
         $nimLama = $data['nimLama'];
         $semesterBaru = $data['semesterBaru'];
         $ipk = $data['ipk'];
+        $noTelpon = $data['noTelpon'];
 
         $result = mysqli_query($conn, "SELECT * FROM tb_mahasiswa WHERE nim='$nimBaru'");
         // Validasi agr Nim baru yg di Input tdk sama dgn nim yg sdh trdftr sebelumnya
@@ -237,26 +237,30 @@ function update ($data, $no_file){
                             namaLengkap='$namaMahasiswa',
                             nim='$nim',
                             semester='$semester',
-                            ipk='$ipk' WHERE id_mahasiswa='$id_mahasiswa'";
+                            ipk='$ipk',
+                            noTelpon='$noTelpon'
+                            WHERE id_mahasiswa='$id_mahasiswa'";
         
-    }else if($no_file == 4){
-        $id_penilaian = $data['id_penilaian'];
-        $id_matkul = $data['id_matkul'];
-        $id_mahasiswa = $data['id_mahasiswa'];
-        $nilai_matkul= $data['nilai_matkul'];
-        $nilai_ujian = $data['nilai-ujian'];
-        $nilai_wawancara = $data['nilai-wawancara'];
-        $nilaiTotalTes = ($nilai_ujian + $nilai_wawancara)/2;
+    }
+    // else if($no_file == 4){
+    //     $id_penilaian = $data['id_penilaian'];
+    //     $id_matkul = $data['id_matkul'];
+    //     $id_mahasiswa = $data['id_mahasiswa'];
+    //     $nilai_matkul= $data['nilai_matkul'];
+    //     $nilai_ujian = $data['nilai-ujian'];
+    //     $nilai_wawancara = $data['nilai-wawancara'];
+    //     $nilaiTotalTes = ($nilai_ujian + $nilai_wawancara)/2;
 
 
-        $query =  "UPDATE tb_penilaian SET
-                                        id_matkul='$id_matkul',
-                                        id_mahasiswa='$id_mahasiswa',
-                                        nilaiMatkul='$nilai_matkul',
-                                        nilaiUjian='$nilai_ujian',
-                                        nilaiWawancara='$nilai_wawancara',
-                                        nilaiTotalTes='$nilaiTotalTes' WHERE id_penilaian='$id_penilaian'";
-    } else if($no_file == 5){
+    //     $query =  "UPDATE tb_penilaian SET
+    //                                     id_matkul='$id_matkul',
+    //                                     id_mahasiswa='$id_mahasiswa',
+    //                                     nilaiMatkul='$nilai_matkul',
+    //                                     nilaiUjian='$nilai_ujian',
+    //                                     nilaiWawancara='$nilai_wawancara',
+    //                                     nilaiTotalTes='$nilaiTotalTes' WHERE id_penilaian='$id_penilaian'";
+    // } 
+    else if($no_file == 5){
         $id_mahasiswa = $data;
         $surat = upload($no_file);
 
@@ -273,7 +277,7 @@ function update ($data, $no_file){
 function updateHasil($data){
     global $conn;
 
-    $id_penilaian = $data['id_penilaian'];
+    $id_pendaftaran = $data['id_pendaftaran'];
     $hasil = $data['hasil'];
     $method = $data['method'];
     // $token = $data['token'];
@@ -288,7 +292,7 @@ function updateHasil($data){
     // }
 
     $hasilBaru = ($hasil== 'belum_ada')? 'lulus':'belum_ada';
-    mysqli_query($conn,"UPDATE tb_penilaian SET hasil='$hasilBaru' WHERE id_penilaian='$id_penilaian'");
+    mysqli_query($conn,"UPDATE tb_pendaftaranasdos SET hasil='$hasilBaru' WHERE id_pendaftaran='$id_pendaftaran'");
     
     return mysqli_affected_rows($conn);
 

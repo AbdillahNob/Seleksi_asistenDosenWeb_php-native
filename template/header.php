@@ -153,9 +153,9 @@ $rowM = mysqli_fetch_assoc($query_mahasiswa);
                     <!-- Jika Nomor/NIM yang login sdh regitrasi -->
                     <?php if(mysqli_num_rows($query_mahasiswa) > 0):?>
                     <li>
-                        <a class="has-arrow" href="jadwalTes.php?id_mahasiswa=<?= $rowM['id_mahasiswa']; ?>"
+                        <a class="has-arrow" href="listDaftarAsdos.php?id_mahasiswa=<?= $rowM['id_mahasiswa']; ?>"
                             aria-expanded="false">
-                            <i class="icon-note menu-icon"></i><span class="nav-text">Jadwal Tes</span>
+                            <i class="icon-note menu-icon"></i><span class="nav-text">Daftar Asdos</span>
                         </a>
                     </li>
                     <?php endif; ?>
@@ -163,7 +163,7 @@ $rowM = mysqli_fetch_assoc($query_mahasiswa);
 
                     <?php if($row['status'] !== 'mahasiswa') : ?>
                     <li><a class="has-arrow" href="dataPeserta.php?status=<?= $row['status'] ?>" aria-expanded="false">
-                            <i class="fa-solid fa-users"></i><span class="nav-text">Peserta Asdos</span>
+                            <i class="fa-solid fa-users"></i><span class="nav-text">Lihat Peserta</span>
                         </a>
 
                     </li>
@@ -174,8 +174,8 @@ $rowM = mysqli_fetch_assoc($query_mahasiswa);
                             <i class="icon-note menu-icon"></i><span class="nav-text">Mata Kuliah</span>
                         </a>
                     </li>
-                    <li><a class="has-arrow" href="penilaian.php" aria-expanded="false"><i
-                                class="fa-solid fa-bookmark"></i><span class="nav-text">Penilaian</span></a>
+                    <li><a class="has-arrow" href="daftarAsdos.php" aria-expanded="false"><i
+                                class="fa-solid fa-bookmark"></i><span class="nav-text">Daftar Asdos</span></a>
                     </li>
                     <?php endif; ?>
 

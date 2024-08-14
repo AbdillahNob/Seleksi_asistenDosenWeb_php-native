@@ -105,6 +105,15 @@ if(isset($_POST['submit'])){
                                             placeholder="Masukkan IPK..." value="<?= $row['ipk'] ?>" />
                                     </div>
                                 </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="noTelpon">NoTelpon<span
+                                            class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input type="text" class="form-control" id="noTelpon" name="noTelpon"
+                                            placeholder="Masukkan No.Telpon/Wa.." value="<?= $row['noTelpon'] ?>" />
+                                    </div>
+                                </div>
 
                                 <div class="form-group row">
                                     <div class="col-lg-8 ml-auto">
