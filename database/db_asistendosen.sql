@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 08, 2024 at 10:09 AM
+-- Generation Time: Aug 15, 2024 at 02:46 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -33,8 +33,21 @@ CREATE TABLE `tb_mahasiswa` (
   `namaLengkap` varchar(50) NOT NULL,
   `semester` varchar(10) NOT NULL,
   `ipk` decimal(10,2) NOT NULL,
+  `noTelpon` varchar(11) NOT NULL,
   `suratRekomendasi` varchar(60) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tb_mahasiswa`
+--
+
+INSERT INTO `tb_mahasiswa` (`id_mahasiswa`, `nim`, `namaLengkap`, `semester`, `ipk`, `noTelpon`, `suratRekomendasi`) VALUES
+(39, 202304, 'Muh.habibi Putra Al-Iman', '3', 3.55, '08234640918', '66bcce491533a.pdf'),
+(40, 202110, 'Jusman Curanon', '8', 3.61, '08234640917', '66bcce4f2321e.pdf'),
+(41, 202301, 'Andi Aini', '3', 4.00, '08276589033', '66bcce5528489.pdf'),
+(43, 202305, 'Andi Meiyati', '3', 4.00, '08276589033', '66bcce5ad3d60.pdf'),
+(44, 198100, 'Hanna Ishikawa', '5', 3.90, '08214566790', '66bcce6041eb3.pdf'),
+(46, 202300, 'Abdillah P Al-Iman', '9', 3.89, '08229195233', '66bccf0d04c36.pdf');
 
 -- --------------------------------------------------------
 
@@ -47,27 +60,45 @@ CREATE TABLE `tb_matkul` (
   `kode_matkul` varchar(20) NOT NULL,
   `nama_matkul` varchar(40) NOT NULL,
   `semester` int(10) NOT NULL,
-  `jadwalTes` datetime NOT NULL,
   `jumlah_kelas` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tb_matkul`
+--
+
+INSERT INTO `tb_matkul` (`id_matkul`, `kode_matkul`, `nama_matkul`, `semester`, `jumlah_kelas`) VALUES
+(9, 'P1042-T', 'PRAK.ALGORITMA DAN PEMROGRAMAN', 1, 9),
+(10, 'E2011-T', 'Prak.Elektronika Analog', 1, 10),
+(11, 'K1212-T', 'Prak. PTI dan PLA', 1, 10);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_penilaian`
+-- Table structure for table `tb_pendaftaranasdos`
 --
 
-CREATE TABLE `tb_penilaian` (
-  `id_penilaian` int(11) NOT NULL,
+CREATE TABLE `tb_pendaftaranasdos` (
+  `id_pendaftaran` int(11) NOT NULL,
   `id_matkul` int(11) NOT NULL,
   `id_mahasiswa` int(11) NOT NULL,
   `nilaiMatkul` decimal(10,2) NOT NULL,
-  `nilaiUjian` decimal(10,1) NOT NULL,
-  `nilaiWawancara` decimal(10,1) NOT NULL,
-  `nilaiTotalTes` decimal(10,1) NOT NULL,
+  `totalNilai` decimal(10,2) NOT NULL,
   `hasil` enum('belum_ada','lulus') NOT NULL DEFAULT 'belum_ada',
   `suratRekomendasi` varchar(60) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tb_pendaftaranasdos`
+--
+
+INSERT INTO `tb_pendaftaranasdos` (`id_pendaftaran`, `id_matkul`, `id_mahasiswa`, `nilaiMatkul`, `totalNilai`, `hasil`, `suratRekomendasi`) VALUES
+(24, 9, 46, 3.90, 3.90, 'lulus', '66bccf286c683.pdf'),
+(25, 9, 39, 3.56, 3.56, 'belum_ada', '66bccf5804965.pdf'),
+(26, 9, 41, 3.86, 3.93, 'lulus', '66bccf7089e81.pdf'),
+(27, 9, 40, 3.61, 3.61, 'belum_ada', '66bccf9036ce0.pdf'),
+(28, 9, 43, 3.58, 3.79, 'belum_ada', '66bccfac1e301.pdf'),
+(29, 9, 44, 3.81, 3.86, 'lulus', '66bccfcf73a95.pdf');
 
 -- --------------------------------------------------------
 
@@ -117,10 +148,10 @@ ALTER TABLE `tb_matkul`
   ADD PRIMARY KEY (`id_matkul`);
 
 --
--- Indexes for table `tb_penilaian`
+-- Indexes for table `tb_pendaftaranasdos`
 --
-ALTER TABLE `tb_penilaian`
-  ADD PRIMARY KEY (`id_penilaian`),
+ALTER TABLE `tb_pendaftaranasdos`
+  ADD PRIMARY KEY (`id_pendaftaran`),
   ADD KEY `id_matkul` (`id_matkul`),
   ADD KEY `id_mahasiswa` (`id_mahasiswa`);
 
@@ -139,19 +170,19 @@ ALTER TABLE `tb_user`
 -- AUTO_INCREMENT for table `tb_mahasiswa`
 --
 ALTER TABLE `tb_mahasiswa`
-  MODIFY `id_mahasiswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id_mahasiswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `tb_matkul`
 --
 ALTER TABLE `tb_matkul`
-  MODIFY `id_matkul` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_matkul` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT for table `tb_penilaian`
+-- AUTO_INCREMENT for table `tb_pendaftaranasdos`
 --
-ALTER TABLE `tb_penilaian`
-  MODIFY `id_penilaian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+ALTER TABLE `tb_pendaftaranasdos`
+  MODIFY `id_pendaftaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `tb_user`
@@ -170,11 +201,11 @@ ALTER TABLE `tb_mahasiswa`
   ADD CONSTRAINT `tb_mahasiswa_ibfk_2` FOREIGN KEY (`nim`) REFERENCES `tb_user` (`nomor`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `tb_penilaian`
+-- Constraints for table `tb_pendaftaranasdos`
 --
-ALTER TABLE `tb_penilaian`
-  ADD CONSTRAINT `tb_penilaian_ibfk_1` FOREIGN KEY (`id_mahasiswa`) REFERENCES `tb_mahasiswa` (`id_mahasiswa`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `tb_penilaian_ibfk_2` FOREIGN KEY (`id_matkul`) REFERENCES `tb_matkul` (`id_matkul`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `tb_pendaftaranasdos`
+  ADD CONSTRAINT `tb_pendaftaranasdos_ibfk_1` FOREIGN KEY (`id_mahasiswa`) REFERENCES `tb_mahasiswa` (`id_mahasiswa`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tb_pendaftaranasdos_ibfk_2` FOREIGN KEY (`id_matkul`) REFERENCES `tb_matkul` (`id_matkul`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
