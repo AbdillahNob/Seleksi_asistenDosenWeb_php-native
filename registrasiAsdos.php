@@ -8,9 +8,24 @@ $nim = $_SESSION['nomor'];
 $result = view("SELECT * FROM tb_mahasiswa WHERE nim='$nim'");
 $row = mysqli_fetch_assoc($result);
 
-$_SESSION['id_mahasiswa'] = $row['id_mahasiswa'];
+
 if(isset($_POST['submit'])){
     $no_file = $_POST['no_file'];
+    $nilai_matkul = $_POST['nilai-matkul'];
+
+    $_SESSION['id_mahasiswa'] = $row['id_mahasiswa'];
+    $_SESSION['id_matkul'] = $id_matkul;
+    if(!$nilai_matkul){
+        echo "
+        <script>
+            alert('Maaf anda harus input Nilai Mata Kuliah');
+            window.setTimeout(function(){
+                window.location.replace('registrasiAsdos.php');
+            },500);
+        </script>
+    ";
+    return false;
+    }
     
     if(insert($_POST, $no_file) > 0){
         echo"
@@ -25,7 +40,7 @@ if(isset($_POST['submit'])){
                 });
             },10);
             window.setTimeout(function(){
-                window.location.replace('listDaftarAsdos.php');
+                window.location.replace('daftarHasil.php');
             },2000);
         </script>
         ";  
@@ -42,7 +57,7 @@ if(isset($_POST['submit'])){
                 });
             },10);
             window.setTimeout(function(){
-                window.location.replace('listDaftarAsdos.php');
+                window.location.replace('daftarHasil.php');
             },1500);
         </script>
         ";
@@ -66,16 +81,27 @@ if(isset($_POST['submit'])){
                                 <input type="hidden" name="id_mahasiswa" value="<?= $row['id_mahasiswa'] ?>">
 
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label" for="nilai-matkul">
-                                        Masukkan Nilai Mata Kuliah<span class="text-danger">*</span>
+                                    <label class="col-lg-4 col-form-label" for="nilai-matkul">Nilai Mata Kuliah<span
+                                            class="text-danger">*</span>
                                     </label>
                                     <div class="col-lg-6">
-                                        <input type="text" class="form-control" id="nilai-matkul" name="nilai-matkul"
-                                            placeholder="Masukkan Nilai Bobot Anda..." required />
+                                        <select class="form-control" id="nilai-matkul" name="nilai-matkul" required>
+                                            <option selected disabled>Nilai Bobot</option>
+                                            <option value="A">A</option>
+                                            <option value="A-">A-</option>
+                                            <option value="B+">B+</option>
+                                            <option value="B">B</option>
+                                            <option value="B-">B-</option>
+                                            <option value="C+">C+</option>
+                                            <option value="C">C</option>
+                                            <option value="C-">C-</option>
+                                            <option value="D+">D+</option>
+                                            <option value="D">D</option>
+                                            <option value="D-">D-</option>
+                                            <option value="E">E</option>
+                                        </select>
                                     </div>
-
                                 </div>
-
                                 <div class="form-group row">
                                     <label for="suratRekomendasi" class="col-lg-4 col-form-label">
                                         Upload Surat Rekomendasi<span class="text-danger">*</span>

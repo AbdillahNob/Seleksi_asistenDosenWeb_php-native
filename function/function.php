@@ -18,6 +18,7 @@ function insert($data, $no_file){
     // 2. Mata Kuliah
     // 3. Registrasi Mahasiswa
     // 4. Registrasi Asdos
+    // 5. Registrasi Dosen
 
     if($no_file == 1){
         $username = strtolower(stripslashes($data['username']));
@@ -109,26 +110,7 @@ function insert($data, $no_file){
         ";
         return false;
         }
-        if($nilai_matkul < 3.50){
-            echo "
-            <script>
-                alert('Nilai Mata Kuliah Anda tidak memenuhi Standar !');
-            </script>
-        ";
-        return false;
-        }
-
-        // Validasi agr inputan nilai tdk lebih dari 4.00
-        if($nilai_matkul > 4.00){
-            echo "
-            <script>
-                alert('Nilai Anda melebihi dari nilai Maksimal !');
-            </script>
-        ";
-        return false;
-        }
-
-        // Validasi IPK Mahasiswa yang mendaftar
+       
         $nilaiIpk = mysqli_query($conn, "SELECT * FROM tb_mahasiswa WHERE id_mahasiswa='$id_mahasiswa'");
         $nilaiIpkD = mysqli_fetch_assoc($nilaiIpk);
         if($nilaiIpkD['ipk'] < 3.50){
@@ -140,8 +122,33 @@ function insert($data, $no_file){
         return false;
         }
 
-        $totalNilai = ($nilai_matkul + $nilaiIpkD['ipk'])/2;
-        $query = "INSERT INTO tb_pendaftaranasdos (id_matkul, id_mahasiswa, nilaiMatkul,totalNilai, suratRekomendasi) VALUES ('$id_matkul','$id_mahasiswa','$nilai_matkul','$totalNilai','$surat_rekomendasi')";
+        if($nilai_matkul == 'A' || $nilai_matkul == 'A-'){
+            $hasil = 'LULUS';    
+        }else{
+            $hasil ='TIDAK LULUS';
+        }
+        $query = "INSERT INTO tb_pendaftaranasdos (id_matkul, id_mahasiswa, nilaiMatkul, hasil, suratRekomendasi) 
+                      VALUES ('$id_matkul','$id_mahasiswa','$nilai_matkul','$hasil','$surat_rekomendasi')";
+        
+    }
+    else if($no_file == 5){
+        $nid = $data['nid'];
+        $namaLengkap = $data['nama-dosen'];
+        $id_matkul = $data['namaMatkul'];
+
+        // Validasi agr dosen tdk registrasi lebih dri 1X
+        $result = mysqli_query($conn, "SELECT * FROM tb_dosen WHERE nid='$nid'");
+        if(mysqli_num_rows($result) > 0){
+            echo "
+            <script>
+                alert('Maaf Anda sudah Registrasi sebelumnya!);
+            </script>
+        ";
+        return false;
+        }
+
+        $query = "INSERT INTO tb_dosen (id_matkul, nid, namaLengkap) VALUES ('$id_matkul','$nid','$namaLengkap')";
+
     }
     else{
         return false;
@@ -242,24 +249,7 @@ function update ($data, $no_file){
                             WHERE id_mahasiswa='$id_mahasiswa'";
         
     }
-    // else if($no_file == 4){
-    //     $id_penilaian = $data['id_penilaian'];
-    //     $id_matkul = $data['id_matkul'];
-    //     $id_mahasiswa = $data['id_mahasiswa'];
-    //     $nilai_matkul= $data['nilai_matkul'];
-    //     $nilai_ujian = $data['nilai-ujian'];
-    //     $nilai_wawancara = $data['nilai-wawancara'];
-    //     $nilaiTotalTes = ($nilai_ujian + $nilai_wawancara)/2;
-
-
-    //     $query =  "UPDATE tb_penilaian SET
-    //                                     id_matkul='$id_matkul',
-    //                                     id_mahasiswa='$id_mahasiswa',
-    //                                     nilaiMatkul='$nilai_matkul',
-    //                                     nilaiUjian='$nilai_ujian',
-    //                                     nilaiWawancara='$nilai_wawancara',
-    //                                     nilaiTotalTes='$nilaiTotalTes' WHERE id_penilaian='$id_penilaian'";
-    // } 
+ 
     else if($no_file == 5){
         $id_mahasiswa = $data;
         $surat = upload($no_file);
@@ -274,29 +264,6 @@ function update ($data, $no_file){
     return mysqli_affected_rows($conn);
 }
 
-function updateHasil($data){
-    global $conn;
-
-    $id_pendaftaran = $data['id_pendaftaran'];
-    $hasil = $data['hasil'];
-    $method = $data['method'];
-    // $token = $data['token'];
-
-    // if($token != $_SESSION['csrf_token']){
-    //     echo"
-    //     <script>
-    //         alert('Token Csrf tidak Valid');
-    //     </script>
-    //     ";
-    //     return false;
-    // }
-
-    $hasilBaru = ($hasil== 'belum_ada')? 'lulus':'belum_ada';
-    mysqli_query($conn,"UPDATE tb_pendaftaranasdos SET hasil='$hasilBaru' WHERE id_pendaftaran='$id_pendaftaran'");
-    
-    return mysqli_affected_rows($conn);
-
-}
 
 function upload($no_file){
 

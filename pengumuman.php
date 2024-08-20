@@ -11,11 +11,10 @@ if(isset($_SESSION['id_matkul'])){
 }
 
 $query_pendaftaranAsdos = view("SELECT tb_pendaftaranasdos.id_pendaftaran, tb_mahasiswa.namaLengkap, tb_mahasiswa.nim, tb_mahasiswa.ipk, tb_mahasiswa.noTelpon,   
-                        tb_pendaftaranasdos.nilaiMatkul, tb_pendaftaranasdos.totalNilai, tb_pendaftaranasdos.hasil
+                        tb_pendaftaranasdos.nilaiMatkul, tb_pendaftaranasdos.hasil
                         FROM tb_pendaftaranasdos
                         JOIN tb_mahasiswa ON tb_pendaftaranasdos.id_mahasiswa = tb_mahasiswa.id_mahasiswa
-                        WHERE tb_pendaftaranasdos.id_matkul ='$id_matkul' ORDER BY totalNilai DESC
-                        ");
+                        WHERE tb_pendaftaranasdos.id_matkul ='$id_matkul'");
 $query_matkul = view("SELECT * FROM tb_matkul WHERE id_matkul='$id_matkul'");                        
 $rowM = mysqli_fetch_assoc($query_matkul);
 
@@ -78,8 +77,8 @@ if(isset($_POST['submit'])){
                                         <td><?= $row['nilaiMatkul'] ?></td>
                                         <td>
                                             <button
-                                                class="btn mb-1 btn-rounded <?= $row['hasil']=='belum_ada'?'btn-danger':'btn-success' ?>">
-                                                <?= htmlspecialchars($row['hasil']=='belum_ada'?'belum_ada':'lulus') ?></button>
+                                                class="btn mb-1 btn-rounded <?= $row['hasil']=='TIDAK LULUS'?'btn-danger':'btn-success' ?>">
+                                                <?= htmlspecialchars($row['hasil']=='TIDAK LULUS'?'TIDAK LULUS':'LULUS') ?></button>
                                         </td>
 
                                     </tr>

@@ -5,6 +5,7 @@ require 'template/header.php';
 if(isset($_SESSION['id_mahasiswa'])){
     $id_mahasiswa = $_SESSION['id_mahasiswa'];
     unset($_SESSION['id_mahasiswa']);
+    unset($_SESSION['id_matkul']);
 }else{
     $id_mahasiswa = $_GET['id_mahasiswa'];
 }
@@ -56,7 +57,8 @@ $query_matkul = view("SELECT * FROM tb_matkul");
                                                         title="Daftar">DAFTAR</button></a>
                                             </div>
                                             <div class="">
-                                                <a href="pengumuman.php?id_matkul=<?= $row['id_matkul']; ?>"><button
+                                                <a
+                                                    href="daftarHasil.php?id_mahasiswa=<?= $id_mahasiswa ?> && id_matkul=<?= $row['id_matkul'] ?>"><button
                                                         class="btn mb-2 btn-success" type="button"
                                                         title="Daftar">PENGUMUMAN</button></a>
                                             </div>
@@ -64,7 +66,7 @@ $query_matkul = view("SELECT * FROM tb_matkul");
                                             <div class="">
                                                 <span class="badge badge-danger px-2">Harus Di berikan Surat Rekomendasi
                                                     dari
-                                                    DOSEN !</span>
+                                                    Kaprodi !</span>
                                             </div>
                                             <?php endif; ?>
                                         </td>

@@ -77,7 +77,7 @@ if(isset($_POST['submit'])){
                                         <th>IPK</th>
                                         <th>No.Telpon/Wa</th>
                                         <th>Keterangan Rekomendasi</th>
-                                        <?php if($status == 'dosen'): ?>
+                                        <?php if($status == 'kaprodi'): ?>
                                         <th>Surat Rekomendasi</th>
                                         <?php endif; ?>
                                         <?php if($status == 'admin'): ?>
@@ -100,7 +100,7 @@ if(isset($_POST['submit'])){
                                                 class="badge badge-<?= $row['suratRekomendasi']==true?'primary':'danger' ?> px-3">
                                                 <?= $row['suratRekomendasi']==true?'Telah DiSerahkan':'Belum Diserahkan' ?>
                                         </td>
-                                        <?php if($status == 'dosen') :?>
+                                        <?php if($status == 'kaprodi') :?>
                                         <form role="form" action="" method="post" enctype="multipart/form-data">
                                             <input type="hidden" name="no_file" value="5">
                                             <input type="hidden" name="id_mahasiswa"

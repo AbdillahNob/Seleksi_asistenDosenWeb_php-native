@@ -16,11 +16,15 @@ $result = mysqli_query($conn, "SELECT * FROM tb_user WHERE nomor='$nomor'");
 $row = mysqli_fetch_assoc($result);
 
 
-// utk mengetahui apakah nomor/nim ini sdh daftar
+// utk mendeteksi apkh nim mahasiswa ini sdh Registrasi 
 $query_mahasiswa = mysqli_query($conn, "SELECT * FROM tb_mahasiswa WHERE nim='$nomor'");
 $rowM = mysqli_fetch_assoc($query_mahasiswa);
 
-?>
+// untuk mendeteksi apkh nid dosen ini sudah registrasi
+$query_dosen = mysqli_query($conn,"SELECT * FROM tb_dosen WHERE nid='$nomor'");
+$rowD = mysqli_fetch_assoc($query_dosen);
+
+?>s
 
 <!DOCTYPE html>
 <html lang="en">
@@ -101,7 +105,7 @@ $rowM = mysqli_fetch_assoc($query_mahasiswa);
                         Anda</a>
 
                     <?php else: ?>
-                    <span class="badge badge-warning px-2">Anda belum di berikan Surat Rekomendasi oleh Dosen</span>
+                    <span class="badge badge-warning px-2">Anda belum di berikan Surat Rekomendasi oleh Kaprodi</span>
 
                     <?php endif; ?>
                     <?php endif; ?>
@@ -161,7 +165,21 @@ $rowM = mysqli_fetch_assoc($query_mahasiswa);
                     <?php endif; ?>
                     <?php endif; ?>
 
-                    <?php if($row['status'] !== 'mahasiswa') : ?>
+                    <?php if($row['status'] == 'dosen'): ?>
+                    <li><a class="has-arrow" href="registrasiDosen.php" aria-expanded="false">
+                            <i class="fas fa-user-shield"></i><span class="nav-text">Registrasi</span>
+                        </a>
+
+                    </li>
+                    <?php endif; ?>
+                    <?php if($row['status'] == 'dosen' && mysqli_num_rows($query_dosen)> 0) : ?>
+                    <li><a class="has-arrow" href="pengumuman.php?id_matkul=<?= $rowD['id_matkul'] ?>"
+                            aria-expanded="false">
+                            <i class="fa-solid fa-users"></i><span class="nav-text">Lihat Peserta</span>
+                        </a>
+
+                    </li>
+                    <?php elseif($row['status'] !== 'mahasiswa' && $row['status'] !== 'dosen' ): ?>
                     <li><a class="has-arrow" href="dataPeserta.php?status=<?= $row['status'] ?>" aria-expanded="false">
                             <i class="fa-solid fa-users"></i><span class="nav-text">Lihat Peserta</span>
                         </a>
