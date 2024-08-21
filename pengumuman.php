@@ -10,31 +10,14 @@ if(isset($_SESSION['id_matkul'])){
     $id_matkul = $_GET['id_matkul'];
 }
 
-$query_pendaftaranAsdos = view("SELECT tb_pendaftaranasdos.id_pendaftaran, tb_mahasiswa.namaLengkap, tb_mahasiswa.nim, tb_mahasiswa.ipk, tb_mahasiswa.noTelpon,   
+$query_pendaftaranAsdos = view("SELECT tb_pendaftaranasdos.id_pendaftaran, tb_mahasiswa.namaLengkap, tb_mahasiswa.nim, tb_mahasiswa.ipk, tb_mahasiswa.noTelpon, tb_mahasiswa.semester,   
                         tb_pendaftaranasdos.nilaiMatkul, tb_pendaftaranasdos.hasil
                         FROM tb_pendaftaranasdos
                         JOIN tb_mahasiswa ON tb_pendaftaranasdos.id_mahasiswa = tb_mahasiswa.id_mahasiswa
                         WHERE tb_pendaftaranasdos.id_matkul ='$id_matkul'");
 $query_matkul = view("SELECT * FROM tb_matkul WHERE id_matkul='$id_matkul'");                        
 $rowM = mysqli_fetch_assoc($query_matkul);
-
-
-
-if(isset($_POST['submit'])){
-    // agr stlh update Hasil, id_matkul sebelumnya di halaman ini ttp di ada
-    $_SESSION['id_matkul'] = $_POST['id_matkul'];
-    
-    if(updateHasil($_POST) > 0){
-        echo"
-        <script type='text/javascript'>
-
-            window.setTimeout(function(){
-                window.location.replace('daftarAsdosDetail.php');
-            },10);
-        </script>
-        ";  
-    }   
-}                        
+               
 
 ?>
 
@@ -56,9 +39,10 @@ if(isset($_POST['submit'])){
                                         <th>No</th>
                                         <th>Nim</th>
                                         <th>Nama Mahasiswa</th>
+                                        <th>Semester</th>
                                         <th>No.Telpon/Wa</th>
                                         <th>IPK</th>
-                                        <th>Mata Kuliah</th>
+                                        <th>Nilai Mata Kuliah</th>
                                         <th>Hasil</th>
 
                                     </tr>
@@ -72,6 +56,7 @@ if(isset($_POST['submit'])){
 
                                         <td><?= $row['nim'] ?></td>
                                         <td><?= $row['namaLengkap'] ?></td>
+                                        <td><?= $row['semester'] ?></td>
                                         <td><?= $row['noTelpon'] ?></td>
                                         <td><?= $row['ipk'] ?></td>
                                         <td><?= $row['nilaiMatkul'] ?></td>

@@ -72,7 +72,7 @@ if(isset($_POST['submit'])){
                 <div class="card">
                     <div class="card-body">
                         <div class="form-validation">
-                            <h3>Registrasi Peserta Calon Asisten Dosen</h3>
+                            <h3>Registrasi Dosen</h3>
                             <form class="form-valide" action="?no_file=5" method="post">
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="nid">Nid Anda <span
