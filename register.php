@@ -186,7 +186,6 @@ if(isset($_POST['submit']) && isset($_POST['status'])){
                                             <option selected disabled>Status</option>
                                             <option value="mahasiswa">Mahasiswa</option>
                                             <option value="dosen">Dosen</option>
-                                            <option value="kaprodi">Kaprodi</option>
                                             <option value="admin">Admin</option>
                                         </select>
                                     </div>

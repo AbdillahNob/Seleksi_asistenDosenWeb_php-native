@@ -69,6 +69,7 @@ function insert($data, $no_file){
         $semester = $data['semester'];
         $noTelpon = $data['noTelpon'];
         $ipk = $data['ipk'];
+        $dosenRekomendasi = $data['dosenRekomendasi'];
 
         $result = mysqli_query($conn, "SELECT * FROM tb_mahasiswa WHERE nim='$nim'");
         if(mysqli_num_rows($result) > 0 ){
@@ -90,7 +91,7 @@ function insert($data, $no_file){
         return false;
         }
 
-        $query = "INSERT INTO tb_mahasiswa (nim, namaLengkap, semester, ipk, noTelpon) VALUES('$nim','$namaMahasiswa','$semester','$ipk', '$noTelpon')";
+        $query = "INSERT INTO tb_mahasiswa (id_dosen, nim, namaLengkap, semester, ipk, noTelpon) VALUES('$dosenRekomendasi','$nim','$namaMahasiswa','$semester','$ipk', '$noTelpon')";
     }
     else if($no_file == 4){
         $id_mahasiswa = $data['id_mahasiswa'];

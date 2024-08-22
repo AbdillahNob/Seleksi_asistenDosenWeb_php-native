@@ -175,13 +175,22 @@ $rowD = mysqli_fetch_assoc($query_dosen);
                     <?php if($row['status'] == 'dosen' && mysqli_num_rows($query_dosen)> 0) : ?>
                     <li><a class="has-arrow" href="pengumuman.php?id_matkul=<?= $rowD['id_matkul'] ?>"
                             aria-expanded="false">
-                            <i class="fa-solid fa-users"></i><span class="nav-text">Lihat Peserta</span>
+                            <i class="fa-solid fa-users"></i><span class="nav-text">Lihat Peserta Anda</span>
                         </a>
 
                     </li>
-                    <?php elseif($row['status'] !== 'mahasiswa' && $row['status'] !== 'dosen' ): ?>
+
+                    <li><a class="has-arrow"
+                            href="serahkanRekomendasi.php?status=<?= $row['status'] ?> && id_dosen=<?= $rowD['id_dosen'] ?>"
+                            aria-expanded="false">
+                            <i class="fas fa-paste"></i><span class="nav-text">Surat Rekomendasi</span>
+                        </a>
+
+                    </li>
+                    <?php endif; ?>
+                    <?php if($row['status'] == 'admin'): ?>
                     <li><a class="has-arrow" href="dataPeserta.php?status=<?= $row['status'] ?>" aria-expanded="false">
-                            <i class="fa-solid fa-users"></i><span class="nav-text">Lihat Peserta</span>
+                            <i class="fas fa-user"></i><span class="nav-text">Lihat Peserta</span>
                         </a>
 
                     </li>

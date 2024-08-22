@@ -7,14 +7,27 @@ $nomor = $_SESSION['nomor'];
 $query_user = view("SELECT * FROM tb_user WHERE nomor='$nomor'");
 $row = mysqli_fetch_assoc($query_user);
 
+$query_dosen= view("SELECT * FROM tb_dosen");
+
 
 if(isset($_POST['submit'])){
     $no_file = $_GET['no_file'];
     $semester = $_POST['semester'];
+    $dosenRekomendasi = $_POST['dosenRekomendasi'];
     if(!$semester){
         echo "
         <script>
             alert('Maaf anda harus input Semester');
+            window.setTimeout(function(){
+                window.location.replace('registrasiMahasiswa.php');
+            },500);
+        </script>
+    ";
+    return false;
+    } else if(!$dosenRekomendasi){
+        echo "
+        <script>
+            alert('Harus Input Dosen yang akan berikan anda surat Rekomendasi!');
             window.setTimeout(function(){
                 window.location.replace('registrasiMahasiswa.php');
             },500);
@@ -124,7 +137,23 @@ if(isset($_POST['submit'])){
                                         <input type="text" class="form-control" id="noTelpon" name="noTelpon"
                                             placeholder="Masukkan No Telepon/Wa Anda..." required />
                                     </div>
+                                </div>
 
+
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="dosenRekomendasi">Dosen yang berikan
+                                        anda Surat Rekomendasi<span class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <select class="form-control" id="dosenRekomendasi" name="dosenRekomendasi"
+                                            required>
+                                            <option selected disabled>Pilih Dosen beserta NID-nya</option>
+                                            <?php while($dosen = mysqli_fetch_assoc($query_dosen)): ?>
+                                            <option value="<?= $dosen['id_dosen'] ?>">
+                                                <?= $dosen['nid'], ',  ',  $dosen['namaLengkap'] ?></option>
+                                            <?php endwhile; ?>
+                                        </select>
+                                    </div>
                                 </div>
 
                                 <div class="form-group row">
