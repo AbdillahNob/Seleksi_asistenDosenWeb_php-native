@@ -114,7 +114,7 @@ function insert($data, $no_file){
        
         $nilaiIpk = mysqli_query($conn, "SELECT * FROM tb_mahasiswa WHERE id_mahasiswa='$id_mahasiswa'");
         $nilaiIpkD = mysqli_fetch_assoc($nilaiIpk);
-        if($nilaiIpkD['ipk'] < 3.50){
+        if($nilaiIpkD['ipk'] < 3.00){
             echo "
             <script>
                 alert('IPK Anda tidak memenuhi Standar !');
@@ -123,7 +123,7 @@ function insert($data, $no_file){
         return false;
         }
 
-        if($nilai_matkul == 'A' || $nilai_matkul == 'A-'){
+        if($nilai_matkul == 'A' || $nilai_matkul == 'A-' || $nilai_matkul == "B" ||$nilai_matkul == "B+"){
             $hasil = 'LULUS';    
         }else{
             $hasil ='TIDAK LULUS';
