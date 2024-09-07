@@ -11,7 +11,7 @@ if(!isset($_SESSION['halaman'])){
 }
 
 $nomor = $_SESSION['nomor'];
-$conn = mysqli_connect('localhost','root','','db_asistendosen');
+$conn = mysqli_connect("localhost","u440645144_daffaFiqri","daffaFiqri1","u440645144_db_asistendos");
 $result = mysqli_query($conn, "SELECT * FROM tb_user WHERE nomor='$nomor'");
 $row = mysqli_fetch_assoc($result);
 
