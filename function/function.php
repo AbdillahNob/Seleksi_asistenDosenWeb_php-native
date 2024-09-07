@@ -1,6 +1,6 @@
 <?php 
+use LDAP\Result;
  $conn = mysqli_connect("localhost","root","","db_asistendosen");
-
 
 function view($query){
         global $conn;
