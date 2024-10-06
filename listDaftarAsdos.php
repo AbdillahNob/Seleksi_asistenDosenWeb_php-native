@@ -147,6 +147,15 @@ if(isset($_POST['submit'])){
 
                                             <!-- 2.1 -->
                                             <?php if(isset($rowD1) && $surat_list['suratRekomendasi'] == true): ?>
+
+                                            <div class="form-group row">
+                                                <div class="col-lg-12 ml-auto">
+                                                    <a href="downloadSurat.php?id_surat=<?= $surat_list['id_surat']?>"
+                                                        class="btn btn-warning">Download Surat
+                                                        Rekomendasi
+                                                        Anda</a>
+                                                </div>
+                                            </div>
                                             <div class="form-group row">
                                                 <div class="col-lg-12 ml-auto">
                                                     <a href="registrasiAsdos.php?id_matkul=<?= $row['id_matkul'] ?>"><button

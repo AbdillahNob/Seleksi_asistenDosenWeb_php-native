@@ -98,16 +98,8 @@ $rowD = mysqli_fetch_assoc($query_dosen);
                         <span class="toggle-icon"><i class="icon-menu"></i></span>
                     </div>
                     <?php if($row['status'] == 'mahasiswa' && mysqli_num_rows($query_mahasiswa) > 0): ?>
-                    <?php if($rowM['suratRekomendasi'] == true ): ?>
-                    <a href="downloadSurat.php?id_mahasiswa=<?= $rowM['id_mahasiswa']?>"
-                        class="btn btn-success">Download Surat
-                        Rekomendasi
-                        Anda</a>
 
-                    <?php else: ?>
-                    <span class="badge badge-warning px-2">Anda belum di berikan Surat Rekomendasi oleh Kaprodi</span>
 
-                    <?php endif; ?>
                     <?php endif; ?>
                 </div>
                 <div class="header-right">

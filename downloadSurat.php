@@ -1,8 +1,8 @@
 <?php 
 require 'function/function.php';
 
-$id_mahasiswa = $_GET['id_mahasiswa'];
-$result = mysqli_query($conn, "SELECT * FROM tb_mahasiswa WHERE id_mahasiswa = '$id_mahasiswa'");
+$id_surat = $_GET['id_surat'];
+$result = mysqli_query($conn, "SELECT * FROM tb_suratrekomendasi WHERE id_surat = '$id_surat'");
 $data = mysqli_fetch_assoc($result);
 
 // header yang menunjukkan nama file yang akan didownload
