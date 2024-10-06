@@ -11,7 +11,7 @@ if(!isset($_SESSION['halaman'])){
 }
 
 $nomor = $_SESSION['nomor'];
-$conn = mysqli_connect("localhost","u440645144_daffaFiqri","daffaFiqri1","u440645144_db_asistendos");
+$conn = mysqli_connect("localhost","root","","db_asistendosen");
 $result = mysqli_query($conn, "SELECT * FROM tb_user WHERE nomor='$nomor'");
 $row = mysqli_fetch_assoc($result);
 
@@ -24,7 +24,7 @@ $rowM = mysqli_fetch_assoc($query_mahasiswa);
 $query_dosen = mysqli_query($conn,"SELECT * FROM tb_dosen WHERE nid='$nomor'");
 $rowD = mysqli_fetch_assoc($query_dosen);
 
-?>s
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -181,7 +181,7 @@ $rowD = mysqli_fetch_assoc($query_dosen);
                     </li>
 
                     <li><a class="has-arrow"
-                            href="serahkanRekomendasi.php?status=<?= $row['status'] ?> && id_dosen=<?= $rowD['id_dosen'] ?>"
+                            href="serahkanRekomendasi.php?status=<?= $row['status'] ?>&&id_dosen=<?= $rowD['id_dosen'] ?>"
                             aria-expanded="false">
                             <i class="fas fa-paste"></i><span class="nav-text">Surat Rekomendasi</span>
                         </a>

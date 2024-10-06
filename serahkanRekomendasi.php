@@ -12,14 +12,19 @@ if(isset($_SESSION['status'])){
     $_SESSION['status'] = $status;
     $_SESSION['id_dosen'] = $id_dosen;
 }
-$query_peserta = view("SELECT * FROM tb_mahasiswa WHERE id_dosen='$id_dosen'");
+$query_peserta = view("SELECT tb_suratrekomendasi.id_surat, tb_mahasiswa.namaLengkap, tb_mahasiswa.nim, tb_mahasiswa.ipk, tb_mahasiswa.noTelpon, tb_mahasiswa.semester,
+                        tb_suratrekomendasi.id_mahasiswa, tb_suratrekomendasi.id_matkul, tb_suratrekomendasi.suratRekomendasi
+                        from tb_suratrekomendasi
+                        JOIN tb_mahasiswa ON tb_suratrekomendasi.id_mahasiswa = tb_mahasiswa.id_mahasiswa
+                        WHERE tb_suratrekomendasi.id_dosen = '$id_dosen'
+                    ");
 
 if(isset($_POST['submit'])){
     $no_file = $_POST['no_file'];
     $id_mahasiswa = $_POST['id_mahasiswa'];
     $_SESSION['status'] = $status;
 
-    if(update($id_mahasiswa,$no_file) > 0){
+    if(update($_POST,$no_file) > 0){
          echo"
         <script type='text/javascript'>
             setTimeout(function () {
@@ -85,7 +90,7 @@ if(isset($_POST['submit'])){
                                     </tr>
                                 </thead>
                                 <?php $n = 1;
-                                    while($row = (mysqli_fetch_assoc($query_peserta))):
+                                    while($row = mysqli_fetch_assoc($query_peserta)):
                                 ?>
                                 <tbody>
                                     <tr>
@@ -103,6 +108,8 @@ if(isset($_POST['submit'])){
                                             <input type="hidden" name="no_file" value="5">
                                             <input type="hidden" name="id_mahasiswa"
                                                 value="<?= $row['id_mahasiswa'] ?>">
+                                            <input type="hidden" name="id_dosen" value="<?= $id_dosen ?>">
+
                                             <td><input type="file" name="surat" id="file">
                                                 <button type="submit" name="submit"
                                                     class="btn mb-1 btn-primary">Serahkan</button>

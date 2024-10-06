@@ -1,6 +1,7 @@
 <?php 
 use LDAP\Result;
- $conn = mysqli_connect("localhost","u440645144_daffaFiqri","daffaFiqri1","u440645144_db_asistendos");
+//  $conn = mysqli_connect("localhost","u440645144_daffaFiqri","daffaFiqri1","u440645144_db_asistendos");
+$conn = mysqli_connect("localhost","root","","db_asistendosen");
 
 function view($query){
         global $conn;
@@ -19,6 +20,7 @@ function insert($data, $no_file){
     // 3. Registrasi Mahasiswa
     // 4. Registrasi Asdos
     // 5. Registrasi Dosen
+    // 6. Minta Surat Rekomendasi
 
     if($no_file == 1){
         $username = strtolower(stripslashes($data['username']));
@@ -69,7 +71,7 @@ function insert($data, $no_file){
         $semester = $data['semester'];
         $noTelpon = $data['noTelpon'];
         $ipk = $data['ipk'];
-        $dosenRekomendasi = $data['dosenRekomendasi'];
+        // $dosenRekomendasi = $data['dosenRekomendasi'];
 
         $result = mysqli_query($conn, "SELECT * FROM tb_mahasiswa WHERE nim='$nim'");
         if(mysqli_num_rows($result) > 0 ){
@@ -91,7 +93,7 @@ function insert($data, $no_file){
         return false;
         }
 
-        $query = "INSERT INTO tb_mahasiswa (id_dosen, nim, namaLengkap, semester, ipk, noTelpon) VALUES('$dosenRekomendasi','$nim','$namaMahasiswa','$semester','$ipk', '$noTelpon')";
+        $query = "INSERT INTO tb_mahasiswa (nim, namaLengkap, semester, ipk, noTelpon) VALUES('$nim','$namaMahasiswa','$semester','$ipk', '$noTelpon')";
     }
     else if($no_file == 4){
         $id_mahasiswa = $data['id_mahasiswa'];
@@ -151,6 +153,13 @@ function insert($data, $no_file){
         $query = "INSERT INTO tb_dosen (id_matkul, nid, namaLengkap) VALUES ('$id_matkul','$nid','$namaLengkap')";
 
     }
+    else if($no_file == 6){
+        $id_mahasiswa = $data['id_mahasiswa'];
+        $id_dosen = $data['id_dosen'];
+        $id_matkul = $data['id_matkul'];
+
+        $query ="INSERT INTO tb_suratrekomendasi (id_mahasiswa, id_dosen, id_matkul) Values ('$id_mahasiswa', '$id_dosen','$id_matkul')";
+    }
     else{
         return false;
     }
@@ -165,7 +174,7 @@ function update ($data, $no_file){
     // 2. Mata Kuliah
     // 3. Mahasiswa/Peserta
     // 4. Input Nilai Tes Asdos
-    // 5. Serahkan Surat Rekomendasi ke PESERTA/MAHASISWA
+    // 5. Serahkan Surat Rekomendasi ke PESERTA/MAHASISWA    
 
 
     if($no_file == 2){
@@ -252,10 +261,11 @@ function update ($data, $no_file){
     }
  
     else if($no_file == 5){
-        $id_mahasiswa = $data;
+        $id_mahasiswa = $data['id_mahasiswa'];
+        $id_dosen = $data['id_dosen'];
         $surat = upload($no_file);
 
-    $query = "UPDATE tb_mahasiswa SET suratRekomendasi='$surat' WHERE id_mahasiswa='$id_mahasiswa'";
+    $query = "UPDATE tb_suratrekomendasi SET suratRekomendasi='$surat' WHERE id_mahasiswa='$id_mahasiswa' AND id_dosen = '$id_dosen'";
     }
     else{
         return false;
