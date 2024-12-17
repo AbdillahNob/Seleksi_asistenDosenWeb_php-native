@@ -18,6 +18,50 @@ $query_pendaftaranAsdos = view("SELECT tb_pendaftaranasdos.id_pendaftaran, tb_ma
 $query_matkul = view("SELECT * FROM tb_matkul WHERE id_matkul='$id_matkul'");                        
 $rowM = mysqli_fetch_assoc($query_matkul);
                
+$nilaiHurufAngka = [
+    'A' => 4.0,
+    'A-'=> 3.7,
+    'B+'=> 3.4,
+    'B'=>3.1,
+    'B-'=>2.8,
+    'C+'=>2.6,
+    'C'=>2.3,
+    'C-'=>2.0,
+    'D+'=>1.7,
+    'D'=>1.5,
+    'D-'=>1.2,
+    'E'=>1.0
+];
+
+function konversiNilai($nilaiHuruf, $nilaiHurufAngka){                                            
+    return $nilaiHurufAngka[$nilaiHuruf] ?? null;
+}
+
+$data = [];
+
+// Masukkan semua Data PendaftaranAsdos ke Array data
+while($row = mysqli_fetch_assoc($query_pendaftaranAsdos)){
+    $nilaiHuruf = $row['nilaiMatkul'];
+    $nilaiAngka = konversiNilai($nilaiHuruf, $nilaiHurufAngka);
+
+    $totalNilai = $row['ipk'] + $nilaiAngka;
+
+    $data[] = [
+        'nim'=>$row['nim'],
+        'namaLengkap'=>$row['namaLengkap'],
+        'semester'=>$row['semester'],
+        'noTelpon'=>$row['noTelpon'],
+        'ipk'=>$row['ipk'],
+        'nilaiMatkul'=>$row['nilaiMatkul'],
+        'hasil'=>$row['hasil'],
+        'totalNilai'=>$totalNilai
+    ];
+    
+}
+// Mengurutkan data berdasarkan total nilai (descending)
+usort($data, function ($a, $b) {
+    return $b['totalNilai'] <=> $a['totalNilai'];
+});
 
 ?>
 
@@ -44,11 +88,12 @@ $rowM = mysqli_fetch_assoc($query_matkul);
                                         <th>IPK</th>
                                         <th>Nilai Mata Kuliah</th>
                                         <th>Hasil</th>
+                                        <th>Total Nilai</th>
 
                                     </tr>
                                 </thead>
                                 <?php $n =1;
-                                    while($row=mysqli_fetch_assoc($query_pendaftaranAsdos)):
+                                      foreach($data as $row):
                                 ?>
                                 <tbody>
                                     <tr>
@@ -65,9 +110,10 @@ $rowM = mysqli_fetch_assoc($query_matkul);
                                                 class="btn mb-1 btn-rounded <?= $row['hasil']=='TIDAK LULUS'?'btn-danger':'btn-success' ?>">
                                                 <?= htmlspecialchars($row['hasil']=='TIDAK LULUS'?'TIDAK LULUS':'LULUS') ?></button>
                                         </td>
+                                        <td><?= number_format($row['totalNilai'], 2); ?></td>
 
                                     </tr>
-                                    <?php endwhile; ?>
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>
