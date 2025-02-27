@@ -1,7 +1,7 @@
 <?php 
 use LDAP\Result;
-//  $conn = mysqli_connect("localhost","u440645144_daffaFiqri","daffaFiqri1","u440645144_db_asistendos");
-$conn = mysqli_connect("localhost","root","","db_asistendosen");
+ $conn = mysqli_connect("localhost","u695501755_daffaFiqri","daffaFiqri1","u695501755_db_asistendose");
+// $conn = mysqli_connect("localhost","root","","db_asistendosen");
 
 function view($query){
         global $conn;
